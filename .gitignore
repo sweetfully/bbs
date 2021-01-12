@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+*.pyc
 .Python
 build/
 develop-eggs/
@@ -26,6 +27,21 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# If you are using PyCharm #
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+*.iws /out/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -61,9 +77,32 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Sublime Text #
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
 # Flask stuff:
 instance/
 .webassets-cache
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Scrapy stuff:
 .scrapy
