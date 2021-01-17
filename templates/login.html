@@ -5,20 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>用户登录</title>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/static/my/css/main.css" rel="stylesheet"/>
+    {% load static %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'my/css/main.css' %}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
+    <div class="navbar">
+        <a href="/home/"><img class="logo" src="/static/img/logo.png" alt="精品博客"></a>
+    </div>
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-primary login-panel">
             <div class="panel-heading">
                 <div class="panel-title">登录界面</div>
             </div>
             <div class="panel-body">
-                    <form class="form-horizontal" action="/user/login/" method="post">
+                    <form class="form-horizontal" method="post">
                         {% csrf_token %}
-                        <div class="form-group">
+                        <div class="form-group"  style="margin-top: 30px">
                             <label class="control-label col-md-3" for="username">用户名：</label>
                             <div class="col-md-9">
                                 <input class="form-control" id="username" name="username" placeholder="用户ID / 手机号" autocomplete="off"/>
@@ -30,17 +34,75 @@
                                 <input type="password" class="form-control" id="password" name="password"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <p class="col-md-9 col-md-offset-3">
+                            <span class="error-info"></span>
+                        </p>
+                        <div class="form-group" style="margin-top: 60px">
                             <div class="col-md-9 col-md-offset-3">
-                                <input type="submit" class="btn-primary btn" value="登录"/>
+                                <input id="popup-submit" type="button" class="btn-primary btn" value="登录"/>
+                                <span class="pull-right go-register">还没有账号？点击 <a href="/user/register/">去注册</a></span>
                             </div>
                         </div>
                     </form>
             </div>
         </div>
     </div>
+    <div id="popup-captcha"></div>
 </div>
 </body>
-<script src="/static/jquery-3.4.1.min.js"></script>
-<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'geetest/js/gt.js' %}"></script>
+<script src="{% static 'my/js/setup-ajax.js' %}"></script>
+<script>
+
+    var handlerPopup = function (captchaObj) {
+        captchaObj.onSuccess(function () {
+            var validate = captchaObj.getValidate();
+            $.ajax({
+                url: "/user/login/",
+                type: "post",
+                dataType: "json",
+                data: {
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    geetest_challenge: validate.geetest_challenge,
+                    geetest_validate: validate.geetest_validate,
+                    geetest_seccode: validate.geetest_seccode
+                },
+                success: function (data) {
+                    console.log(data, typeof(data.msg));
+                    if (data.status == 0){
+                        location.href = data.data
+                    }else {
+                        $(".error-info").text(data.msg);
+                    }
+                }
+            });
+        });
+        $("#popup-submit").click(function () {
+            captchaObj.show();
+        });
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#popup-captcha");
+    };
+    // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
+    $.ajax({
+        url: "/user/get_captcha?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                new_captcha: data.new_captcha
+            }, handlerPopup);
+        }
+    });
+</script>
 </html>

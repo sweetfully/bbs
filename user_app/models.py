@@ -15,7 +15,7 @@ class FixedCharField(models.Field):
 
 class UserInfo(AbstractUser):
     user_nick = FixedCharField(max_length=30)
-    phone = models.CharField(max_length=11, unique=True, db_index=True, null=False)
-    avatar = FixedCharField(max_length=50, default='/img/default.png')
+    phone = models.CharField(max_length=11, unique=True, db_index=True, null=True)
+    avatar = models.FileField(upload_to='avatars', default='/avatars/default.png')
 
 

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户注册</title>
+    {% load static %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'my/css/main.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary login-panel">
+            <div class="panel-heading">
+                <div class="panel-title">注册界面</div>
+            </div>
+            <div class="panel-body">
+                <form novalidate class="form-horizontal register-form" method="post">
+                    {% csrf_token %}
+                    <div class="form-group" style="margin-top: 30px">
+                        <label class="control-label col-md-3"
+                               for="{{ forms.user_nick.id_for_label }}">{{ forms.user_nick.label }}</label>
+                        <div class="col-md-9">
+                            {{ forms.user_nick }}
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"
+                               for="{{ forms.password.id_for_label }}">{{ forms.password.label }}</label>
+                        <div class="col-md-9">
+                            {{ forms.password }}
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"
+                               for="{{ forms.re_password.id_for_label }}">{{ forms.re_password.label }}</label>
+                        <div class="col-md-9">
+                            {{ forms.re_password }}
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"
+                               for="{{ forms.email.id_for_label }}">{{ forms.email.label }}</label>
+                        <div class="col-md-9">
+                            {{ forms.email }}
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"
+                               for="{{ forms.phone.id_for_label }}">{{ forms.phone.label }}</label>
+                        <div class="col-md-9">
+                            {{ forms.phone }}
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" for="avatar">用户头像：</label>
+                        <div class="col-md-9">
+                            <label class="control-label" for="avatar">
+                                <img alt="用户头像" src="{% static 'img/default.png' %}" class="display-avatar"/>
+                            </label>
+                            <input type="file" name="avatar" id="avatar" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 60px">
+                        <div class="col-md-9 col-md-offset-3">
+                            <input type="button"  id="popup-submit" class="btn-primary btn" value="注册"/>
+                            <a class="btn btn-info" href="/user/login/" title="返回登录" style="margin-left: 30px"
+                               aria-label="btn">返回登录</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="popup-captcha"></div>
+</div>
+</body>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'geetest/js/gt.js' %}"></script>
+<script src="{% static 'my/js/setup-ajax.js' %}"></script>
+<script>
+    $('#avatar').on('change', function (event) {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            console.log(this.result);
+            $('.display-avatar').attr({"src": this.result})
+        }
+    });
+    $('form input').on('focus', function () {
+        $(this).next("span").text("").parent().parent().removeClass("has-error");
+    });
+    var handlerPopup = function (captchaObj) {
+        captchaObj.onSuccess(function () {
+            var validate = captchaObj.getValidate();
+            var formData = new FormData();
+            formData.append("user_nick", $('#id_user_nick').val());
+            formData.append("password", $('#id_password').val());
+            formData.append("re_password", $('#id_re_password').val());
+            formData.append("email", $('#id_email').val());
+            formData.append("phone", $('#id_phone').val());
+            formData.append("avatar", $('#avatar')[0].files[0]);   // $('#avatar')[0] 将jquery对象转换为js对象
+            formData.append("geetest_challenge", validate.geetest_challenge);
+            formData.append("geetest_validate", validate.geetest_validate);
+            formData.append("geetest_seccode", validate.geetest_seccode);
+            $.ajax({
+                url: "/user/register/",
+                type: "post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    console.log(data, typeof(data.msg));
+                    if (data.status == 0){
+                        location.href = data.data
+                    }else {
+                        if (typeof(data.msg) != "string"){
+                            for (key in data.msg) {
+                                $('#id_'+key).next("span").text(data.msg[key]).parent().parent().addClass("has-error");
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        $("#popup-submit").click(function () {
+            captchaObj.show();
+        });
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#popup-captcha");
+    };
+    // 验证开始需要向网站主后台获取id，challenge，success（是否启用failback）
+    $.ajax({
+        url: "/user/get_captcha?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                new_captcha: data.new_captcha
+            }, handlerPopup);
+        }
+    });
+</script>
+</html>

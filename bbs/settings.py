@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from configs import mysql_config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -77,12 +78,12 @@ WSGI_APPLICATION = 'bbs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
-        'NAME': 'bbs',  # 数据库名称
-        'USER': 'root',
-        'PASSWORD': '123456'
+        'ENGINE': mysql_config.SQL_ENGINE,
+        'HOST': mysql_config.SQL_HOST,
+        'PORT': mysql_config.SQL_PORT,
+        'NAME': mysql_config.SQL_NAME,  # 数据库名称
+        'USER': mysql_config.SQL_USER,
+        'PASSWORD': mysql_config.SQL_PASSWORD
     }
 }
 
