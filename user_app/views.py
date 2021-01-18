@@ -37,7 +37,7 @@ def login(request):
         if result == None:
             return ResultDict.get_error_response("输入的用户名既不是用户ID也不是手机号！")
         else:
-            if request:
+            if result:
                 user = auth.authenticate(request, username=login_name, password=password)
             else:
                 user = auth.authenticate(request, phone=login_name, password=password)
