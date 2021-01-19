@@ -73,14 +73,12 @@ def register(request):
                 # todo   生成的随机用户名需要去验证
                 username = "ID" + get_random_by_len(6)
                 print("username", username)
-                data = models.UserInfo.objects.all().values('username')
-                for userId in data:
-                    print(userId)
-                    print(userId['username'])
-                    if username == userId['username']:
-                        return ResultDict.get_error_response("用户ID重复")
-                    else:
-                        pass
+                data = models.UserInfo.objects.filter(username=username)
+                if data:
+                    return ResultDict.get_error_response("用户ID重复")
+                else:
+                    pass
+
                 UserInfo.objects.create_user(**reg_form_obj.cleaned_data, avatar=avatar, username=username)
                 user = auth.authenticate(request, username=username, password=password)
                 auth.login(request, user=user)
