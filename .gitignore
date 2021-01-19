@@ -41,6 +41,8 @@ MANIFEST
 .idea/**/uiDesigner.xml
 .idea/**/gradle.xml
 .idea/**/libraries
+.idea/bbs.iml
+.idea/misc.xml
 *.iws /out/
 
 # PyInstaller
