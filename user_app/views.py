@@ -39,8 +39,11 @@ def login(request):
         else:
             if result:
                 user = auth.authenticate(request, username=login_name, password=password)
+                print("user对象:", user.username,user.password)
             else:
+                print(login_name)
                 user = auth.authenticate(request, phone=login_name, password=password)
+                print()
             if user:
                 auth.login(request, user=user)
                 return ResultDict.get_success_response("/home/")
@@ -55,6 +58,7 @@ def register(request):
         validate_result = pc_ajax_validate(request)
         if validate_result:  # 通过了验证码的验证
             reg_form_obj = RegisterForm(request.POST)
+            print(request.POST)
             if reg_form_obj.is_valid():
 
                 password = request.POST.get("password")

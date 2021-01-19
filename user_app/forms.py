@@ -1,10 +1,17 @@
 '''
 bbs项目注册模块的form类
 '''
-
+import re
 from django import forms
 from django.core.exceptions import ValidationError
 
+
+# 方法一、自定义手机号码验证规则
+def phone_validate(value):
+    phone_re = re.compile(r'^1[3|4|5|7|8][0-9]{9}$')
+    #正则表达式re模块，re.macth尝试从字符串的开始匹配一个模式。
+    if not phone_re.match(value):
+        raise ValidationError('手机号码格式错误')
 
 class RegisterForm(forms.Form):
     user_nick = forms.CharField(
@@ -44,6 +51,10 @@ class RegisterForm(forms.Form):
         label="电话（可选）：",
         widget=forms.widgets.TextInput(attrs={"class": "form-control", "autocomplete": "off"}),
         error_messages={"max_length": "手机号是11位", "min_length": "手机号是11位"},
+        #自定义手机校验规则方法一
+        #validators=[phone_validate, ]
+        #字段验证方法二
+        #validators = [RegexValidator(r'^1[3|4|5|7|8][0-9]{9}$', '手机格式错误'), ]
     )
 
     def clean_password(self):
@@ -60,3 +71,9 @@ class RegisterForm(forms.Form):
             return self.cleaned_data
         else:
             self.add_error('re_password', ValidationError("两次输入的密码不一致"))
+    #方法三、定义钩子函数
+    def clean_phone(self):
+        phone=self.cleaned_data.get("phone")
+        phone_re = re.compile(r'^1[3|4|5|7|8][0-9]{9}$')
+        if not phone_re.match(phone):
+            raise ValidationError('手机号码格式错误')
