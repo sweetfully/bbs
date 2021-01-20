@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>bbs主页面</title>
+
+		<!--Bootstrap-->
+		<link href="./lib/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/home.css" rel="stylesheet">
+		<!--jquery-->
+		<script src="./lib/Jquery/jquery-3.3.1.min.js"></script>
+		<!--bootstrap js-->
+		<script src="./lib/Bootstrap/js/bootstrap.min.js"></script>
+
+	</head>
+	<body>
+		<div id="nav-row" class="container-fluid">
+			<div class="row">
+				<nav class="navbar navbar-default navbar-static-top" role="navigation" id="navbar">
+					<div class="navbar-header">
+						<a class="navbar-brand " href="#" style="position: relative;">
+							<span style="font-size: 50px;"><img src="./img/logo.png" style="height: 70px;margin-top:-27px"></span>
+						</a>
+					</div>
+					<div class="collapse navbar-collapse" id="example-navbar-collapse">
+						<ul id="navbar-ul" class="nav navbar-nav">
+							<li><a href="index.html">首页</a></li>
+							<li class="active" data-toggle="tab"><a href="#">互联网</a></li>
+							<li data-toggle="tab"><a href="#">设计类</a></li>
+							<li data-toggle="tab"><a href="#">建筑业</a></li>
+							<li data-toggle="tab"><a href="#">汽车类</a></li>
+						</ul>
+						<form class="navbar-form navbar-left hidden-sm hidden-md " role="search">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="博客文章或名称......">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+								</span>
+							</div><!-- /input-group -->
+						</form>
+						<ul id="navbar-ul" class="nav navbar-nav hidden-sm" style="position: absolute; right: 12rem; ">
+							<li class="active" data-toggle="tab"><a href="#">消息</a></li>
+							<li data-toggle="tab"><a href="#">收藏</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right col-lg-1 col-md-1 hidden-sm " >
+							<!-- Single button -->
+							<div class="btn-group">
+									<a  style="display:inline-block;padding:0; 1px solid #ddd;width: 5rem;height: 5rem; border-radius: 50%;"
+									 class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<img src="./img/logo.png" style="width: 100%;height: 100%;">
+									</a>
+								<ul class="dropdown-menu" >
+									<li><a style="color: #777;" href="#">个人中心</a></li>
+									<li><a style="color: #777;" href="#">个人信息</a></li>
+									<li><a style="color: #777;" href="#">修改密码</a></li>
+									<li><a style="color: #777;" href="#">推出登录</a></li>
+								</ul>
+							</div>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</body>
+</html>

@@ -5,4 +5,5 @@ urlpatterns = [
     path('login/', views.login),
     path('register/', views.register),
     path('get_captcha/', views.pc_get_captcha),
+    path('index/', views.index),
 ]

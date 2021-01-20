@@ -24,6 +24,8 @@ def is_username(name):
         return True
     return None
 
+def index(request):
+    return render(request, "index.html")
 
 def login(request):
     if request.method == "POST":
@@ -48,7 +50,7 @@ def login(request):
                 print()
             if user:
                 auth.login(request, user=user)
-                return ResultDict.get_success_response("/home/")
+                return ResultDict.get_success_response("/index/")
             else:
                 return ResultDict.get_error_response("用户名或密码错误")
     return render(request, "login.html")
