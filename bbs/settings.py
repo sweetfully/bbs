@@ -157,3 +157,9 @@ LOGGING = {
 
 # 账号或者手机号的后台验证重写
 AUTHENTICATION_BACKENDS = ['user_app.login_authenticate.UsernameMobileAuthBackend']
+
+# 用户头像地址
+MEDIA_URL = '/avatars/'
+
+# 用户头像的保存位置
+MEDIA_ROOT = os.path.join(BASE_DIR, "avatars")
