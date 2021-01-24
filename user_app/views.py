@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponse
 
-from user_app import models
 from utils.result_dict_util import ResultDict
 from utils.tmp_util import get_random_by_len
 from user_app.models import UserInfo
@@ -12,21 +11,6 @@ from django.contrib import auth
 # Create your views here.
 
 
-def is_username(name):
-    '''
-    判断用户名是否是用户名，返回Ture表示是用户名，返回False表示是手机号
-    :param name:
-    :return:
-    '''
-    if len(name) == 11:
-        return False
-    if name.startswith("ID"):
-        return True
-    return None
-
-def index(request):
-    return render(request, "index.html")
-
 def login(request):
     if request.method == "POST":
         login_name = request.POST.get("username")
@@ -37,27 +21,17 @@ def login(request):
             return ResultDict.get_error_response("用户名不能为空!")
         if not len(password):
             return ResultDict.get_error_response("密码不能为空!")
-        result = is_username(login_name)
-        if result == None:
-            return ResultDict.get_error_response("输入的用户名既不是用户ID也不是手机号！")
+        user = auth.authenticate(request, username=login_name, password=password)
+        # print("user对象:", user.username, user.password)
+        if user:
+            auth.login(request, user=user)
+            return ResultDict.get_success_response("/home/")
         else:
-            if result:
-                user = auth.authenticate(request, username=login_name, password=password)
-                print("user对象:", user.username,user.password)
-            else:
-                print(login_name)
-                user = auth.authenticate(request, phone=login_name, password=password)
-                print()
-            if user:
-                auth.login(request, user=user)
-                return ResultDict.get_success_response("/index/")
-            else:
-                return ResultDict.get_error_response("用户名或密码错误")
+            return ResultDict.get_error_response("用户名或密码错误")
     return render(request, "login.html")
 
 
 def register(request):
-    print(request.method.center(80, '-'))
     if request.method == "POST":
         validate_result = pc_ajax_validate(request)
         if validate_result:  # 通过了验证码的验证
@@ -72,12 +46,11 @@ def register(request):
 
                 avatar = request.FILES.get("avatar")
                 print("头像：", avatar)
-                # todo   生成的随机用户名需要去验证
 
                 while(True):
                     username = "ID" + get_random_by_len(6)
                     print("username", username)
-                    data = models.UserInfo.objects.filter(username=username)
+                    data = UserInfo.objects.filter(username=username)
                     if not data:
                         break
 

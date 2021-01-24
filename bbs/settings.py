@@ -125,10 +125,35 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# 静态文件访问时的地址
 STATIC_URL = '/static/'
 
+# 静态文件的存放文件夹位置，可以有多个
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
+# 重写auth的user表的位置
 AUTH_USER_MODEL = 'user_app.UserInfo'
+
+# 在控制台中打印出执行的sql语句
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+    }
+}
+
+# 账号或者手机号的后台验证重写
+AUTHENTICATION_BACKENDS = ['user_app.login_authenticate.UsernameMobileAuthBackend']

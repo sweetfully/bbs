@@ -4,6 +4,7 @@ bbs项目注册模块的form类
 import re
 from django import forms
 from django.core.exceptions import ValidationError
+from user_app.models import UserInfo
 
 
 # 方法一、自定义手机号码验证规则
@@ -76,7 +77,11 @@ class RegisterForm(forms.Form):
     # 方法三、定义钩子函数
     def clean_phone(self):
         phone=self.cleaned_data.get("phone")
-        phone_re = re.compile(r'^1[3|4|5|7|8][0-9]{9}$')
-        if not phone_re.match(phone):
-            raise ValidationError('手机号码格式错误')
+        if phone:
+            phone_re = re.compile(r'^1[3|4|5|7|8][0-9]{9}$')
+            if not phone_re.match(phone):
+                raise ValidationError('手机号码格式错误')
+            user_set = UserInfo.objects.filter(phone=phone)
+            if user_set:
+                raise ValidationError('此手机号已经注册过了')
         return phone
