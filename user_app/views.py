@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 from utils.result_dict_util import ResultDict
 from utils.tmp_util import get_random_by_len
@@ -7,6 +7,7 @@ from user_app.forms import RegisterForm
 from geetest import GeetestLib
 from configs import geetest_config
 from django.contrib import auth
+from bbs.settings import LOGIN_URL
 
 # Create your views here.
 
@@ -87,3 +88,8 @@ def pc_ajax_validate(request):
     else:
         result = gt.failback_validate(challenge, validate, seccode)
     return result
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect(LOGIN_URL)

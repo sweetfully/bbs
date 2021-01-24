@@ -163,3 +163,6 @@ MEDIA_URL = '/avatars/'
 
 # 用户头像的保存位置
 MEDIA_ROOT = os.path.join(BASE_DIR, "avatars")
+
+# 用户登录地址（当用户登出的时候跳转此地址）
+LOGIN_URL = '/user/login/'

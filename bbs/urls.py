@@ -23,6 +23,7 @@ from bbs import views, settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(user_urls)),
-    path('home/', views.home),
+    path('home/', views.home, name='bbs_home'),
+    url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
 ]
