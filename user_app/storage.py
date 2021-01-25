@@ -9,4 +9,4 @@ class AvatarStorage(FileSystemStorage):
     def _save(self, name, content):
         name = super(AvatarStorage, self)._save(name, content)
         print('='*20, name)
-        return os.path.sep + name
+        return "/" + name

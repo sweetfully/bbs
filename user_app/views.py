@@ -45,9 +45,6 @@ def register(request):
                 if request.POST.get("phone").strip() == "":
                     reg_form_obj.cleaned_data.pop("phone")
 
-                avatar = request.FILES.get("avatar")
-                print("头像：", avatar)
-
                 while(True):
                     username = "ID" + get_random_by_len(6)
                     print("username", username)
@@ -55,7 +52,13 @@ def register(request):
                     if not data:
                         break
 
-                UserInfo.objects.create_user(**reg_form_obj.cleaned_data, avatar=avatar, username=username)
+                avatar = request.FILES.get("avatar")
+                print("头像：", avatar)
+                if avatar:
+                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, avatar=avatar, username=username)
+                else:
+                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, username=username)
+
                 user = auth.authenticate(request, username=username, password=password)
                 auth.login(request, user=user)
                 return ResultDict.get_success_response("/home/")
