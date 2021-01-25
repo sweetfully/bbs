@@ -166,3 +166,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "avatars")
 
 # 用户登录地址（当用户登出的时候跳转此地址）
 LOGIN_URL = '/user/login/'
+
+# 配置上传头像时使用重写的Storage
+DEFAULT_FILE_STORAGE = 'user_app.storage.AvatarStorage'
