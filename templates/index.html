@@ -35,117 +35,34 @@
     </div>
 </div>
 <div class="container col-lg-6 col-md-6 col-sm-6  col-xs-6" id="boke_content">
-    <ul class="list-group">
-        <li>
-            <span>博客标题</span>
-            <p class="row">
-                <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                       style="width: 6rem;height: 6rem;"></a>
-                <a class="col-md-10" style="display:inline-block; ">
+    <ul id="main_content" class="list-group">
+        {% for i in blog_contents %}
+            <li>
+                <span>{{ i.title }}</span>
+                <p class="row">
+                    <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
+                                                                           style="width: 6rem;height: 6rem;"></a>
+                    <a class="col-md-10" style="display:inline-block; ">
 							<span id="small_content">
-								说发射点发射点士大射点方式旦发射点发射点发
-								射点的发射点发射点士大夫士大夫士大夫士大夫士大夫胜多负少
-								说发射点发射点士大射点方式旦发射点发射点发
+								{{ i.content_paragraph }}
 							</span>
-                </a>
-            </p>
-            <p id="bk_xx">
-                <span>张三</span>
-                <span>2021-01-19</span>
-                <span>点赞数：2401</span>
-                <span>阅读数：45665</span>
-                <span>评论数：13454</span>
-            </p>
-        </li>
-        <li>
-            <span>博客标题</span>
-            <p class="row">
-                <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                       style="width: 6rem;height: 6rem;"></a>
-                <a class="col-md-10" style="display:inline-block; ">
-							<span id="small_content">
-								说发射点发射点士大射点方式旦发射点发射点发
-								射点的发射点发射点士大夫士大夫士大夫士大夫士大夫胜多负少
-								说发射点发射点士大射点方式旦发射点发射点发
+                    </a>
+                </p>
+                <p id="bk_xx">
+                    <span>{{ i.publisher }}</span>
+                    <span>{{ i.create_date }}</span>
+                    <span>点赞数:{{ i.praise_num }}</span>
+                    <span>阅读数:{{ i.read_num }}</span>
+                    <span>评论数:{{ i.comment_num }}</span>
+                </p>
+            </li>
+        {% endfor %}
 
-							</span>
-                </a>
-            </p>
-            <p id="bk_xx">
-                <span>张三</span>
-                <span>2021-01-19</span>
-                <span>点赞数：2401</span>
-                <span>阅读数：45665</span>
-                <span>评论数：13454</span>
-            </p>
-        </li>
-        <li>
-            <span>博客标题</span>
-            <p class="row">
-                <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                       style="width: 6rem;height: 6rem;"></a>
-                <a class="col-md-10" style="display:inline-block; ">
-							<span id="small_content">
-								说发射点发射点士大射点方式旦发射点发射点发
-								射点的发射点发射点士大夫士大夫士大夫士大夫士大夫胜多负少
-								说发射点发射点士大射点方式旦发射点发射点发
-
-							</span>
-                </a>
-            </p>
-            <p id="bk_xx">
-                <span>张三</span>
-                <span>2021-01-19</span>
-                <span>点赞数：2401</span>
-                <span>阅读数：45665</span>
-                <span>评论数：13454</span>
-            </p>
-        </li>
-        <li>
-            <span>博客标题</span>
-            <p class="row">
-                <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                       style="width: 6rem;height: 6rem;"></a>
-                <a class="col-md-10" style="display:inline-block; ">
-							<span id="small_content">
-								说发射点发射点士大射点方式旦发射点发射点发
-								射点的发射点发射点士大夫士大夫士大夫士大夫士大夫胜多负少
-								说发射点发射点士大射点方式旦发射点发射点发
-
-							</span>
-                </a>
-            </p>
-            <p id="bk_xx">
-                <span>张三</span>
-                <span>2021-01-19</span>
-                <span>点赞数：2401</span>
-                <span>阅读数：45665</span>
-                <span>评论数：13454</span>
-            </p>
-        </li>
-        <li>
-            <span>博客标题</span>
-            <p class="row">
-                <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                       style="width: 6rem;height: 6rem;"></a>
-                <a class="col-md-10" style="display:inline-block; ">
-							<span id="small_content">
-								说发射点发射点士大射点方式旦发射点发射点发
-								射点的发射点发射点士大夫士大夫士大夫士大夫士大夫胜多负少
-								说发射点发射点士大射点方式旦发射点发射点发
-
-							</span>
-                </a>
-            </p>
-            <p id="bk_xx">
-                <span>张三</span>
-                <span>2021-01-19</span>
-                <span>点赞数：2401</span>
-                <span>阅读数：45665</span>
-                <span>评论数：13454</span>
-            </p>
-        </li>
     </ul>
+    <!--导入分页组件-->
+    {#{% include 'page.html' %}#}
+    {% load pageGenerate %}
+    {% page num_pages current_num request.path%}
 </div>
 <div class="container col-lg-3 col-md-3 col-sm-3  col-xs-3" id="zy_yc_content">
     <ul id="phb" class="nav nav-tabs">
