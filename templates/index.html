@@ -61,8 +61,10 @@
     </ul>
     <!--导入分页组件-->
     {#{% include 'page.html' %}#}
-    {% load pageGenerate %}
-    {% page num_pages current_num request.path%}
+    {% if blog_contents %}
+        {% load pageGenerate %}
+        {% page num_pages current_num request.path%}
+    {% endif %}
 </div>
 <div class="container col-lg-3 col-md-3 col-sm-3  col-xs-3" id="zy_yc_content">
     <ul id="phb" class="nav nav-tabs" style="border-bottom: 0;">

@@ -4,21 +4,23 @@ from django.shortcuts import render, redirect
 from blog_app import models as blog_model
 from utils.result_dict_util import ResultDict
 
+every_page_content_num = 2
+
 
 def home(request):
     # 得到请求链接中page的值，如果没值设置默认值1
     page = int(getattr(request, request.method).get('page', 1))
     # 计算当前页的第一条记录
-    start_num = (page - 1) * 4
+    start_num = (page - 1) * every_page_content_num
     # 计算当前页的最后一条记录
-    end_num = page * 4
+    end_num = page * every_page_content_num
     # limit限制取数
     blog_contents = blog_model.Blog.objects.all()[start_num:end_num]
     # 总页数（向上取整）
-    num_pages = ceil(blog_model.Blog.objects.count() / 4)
+    num_pages = ceil(blog_model.Blog.objects.count() / every_page_content_num)
     # 如果没有数据，不显示分页组件和列表
     if num_pages == 0:
-        return render(request, "index.html", "没有数据")
+        return render(request, "index.html")
     else:
         blog_contents = {"blog_contents": blog_contents, "current_num": page, "num_pages": num_pages}
         return render(request, "index.html", blog_contents)
@@ -26,7 +28,7 @@ def home(request):
 
 def phb_list(request):
     list_data = list(blog_model.Blog.objects.order_by("-praise_num")[0:4])
-    print("list_data:", list_data[0].praise_num)
+    # print("list_data:", list_data[0].praise_num)
     return ResultDict.get_success_response(list_data)
 
 
