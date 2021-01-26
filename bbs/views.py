@@ -1,6 +1,8 @@
 from math import ceil
+
 from django.shortcuts import render, redirect
 from blog_app import models as blog_model
+from utils.result_dict_util import ResultDict
 
 
 def home(request):
@@ -22,5 +24,16 @@ def home(request):
         return render(request, "index.html", blog_contents)
 
 
+def phb_list(request):
+    list_data = list(blog_model.Blog.objects.order_by("-praise_num")[0:4])
+    print("list_data:", list_data[0].praise_num)
+    return ResultDict.get_success_response(list_data)
+
+
 def index(request):
     return redirect('/home/')
+
+
+# 错误页面函数
+def page_not_found(request, exception):
+    return render(request, "error.html")

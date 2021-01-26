@@ -26,4 +26,8 @@ urlpatterns = [
     path('home/', views.home, name='bbs_home'),
     url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
+    url('phb_list/', views.phb_list),
+    # url('error/', views.page_not_found),
 ]
+# 错误页面路径配置
+handler404 = views.page_not_found

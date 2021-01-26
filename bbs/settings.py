@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tmp2mv#a!pjoczspdp=$qknd9ktl3dztid&z@w#sg-kkbjxh4f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# 错误404页面配置
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

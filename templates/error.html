@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bbs主页面</title>
+
+    {% load static %}
+    <!--Bootstrap-->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my/css/home.css' %}" rel="stylesheet">
+</head>
+<body>
+    {% include 'ydl_nav.html' %}
+    <div>
+        <img src="/avatars/404.jpg" style="display: block;margin:0 auto">
+    </div>
+</body>
+<!--jquery-->
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<!--bootstrap js-->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</html>

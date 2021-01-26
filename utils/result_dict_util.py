@@ -3,7 +3,7 @@ from django.http import JsonResponse
 
 
 class Status(Enum):
-    SUCCESS = 0
+    SUCCESS = 200
     ERROR = 1
     NEED_LOGIN = 10
 
