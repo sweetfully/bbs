@@ -56,10 +56,10 @@ def page(total_num, current_num, url_prefix, page_max_num=9):
              )
     if current_num == total_num:
         page_list.append(
-            '<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">尾页</span></a></li>'.format(url_prefix, total_num)
+            '<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
         )
         page_list.append(
-            '<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
+            '<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">尾页</span></a></li>'
         )
     else:
         page_list.append(
