@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views import static
 from django.views.static import serve
 from django.urls import path, include
 from user_app import urls as user_urls
@@ -27,7 +28,8 @@ urlpatterns = [
     url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
     url('phb_list/', views.phb_list),
-    # url('error/', views.page_not_found),
+    url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
+
 # 错误页面路径配置
 handler404 = views.page_not_found
