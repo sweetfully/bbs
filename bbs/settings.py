@@ -24,7 +24,7 @@ SECRET_KEY = 'tmp2mv#a!pjoczspdp=$qknd9ktl3dztid&z@w#sg-kkbjxh4f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 错误404页面配置
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -122,11 +122,12 @@ USE_TZ = True
 # 静态文件访问时的地址
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 静态文件的存放文件夹位置，可以有多个
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/static")
+    os.path.join(BASE_DIR, "static")
+    # os.path.join(BASE_DIR, "static/static")
 ]
 
 # 重写auth的user表的位置
