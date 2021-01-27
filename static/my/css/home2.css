@@ -1,0 +1,47 @@
+.home-avatar{
+	display:inline-block;
+	padding:0;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.home-avatar img{
+	border-radius: 50%;
+}
+
+.blog-avatar{
+    width: 60px;
+    height: 60px;
+}
+
+.blog-content{
+    height: 60px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.interval-left{
+	margin-left: 15px;
+}
+
+.interval-right{
+	margin-right: 15px;
+}
+
+.blog-body .blog-body-item{
+	margin-top: 0 !important;
+	padding: 25px 15px;
+    border: 0.5px solid #cccccc;
+	border-top-width: 0;
+}
+
+.blog-body .blog-body-item:nth-child(1){
+	border-top-width: 0.5px;
+}
+
+.recommend-body{
+	padding: 15px;
+    border: 0.5px solid #cccccc;
+	border-top-width: 0;
+}

@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(user_urls)),
     path('home/', views.home, name='bbs_home'),
+    path('home2/', views.home2, name='bbs_home2'),
     url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
     url('phb_list/', views.phb_list),
