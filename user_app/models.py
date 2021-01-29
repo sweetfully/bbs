@@ -32,4 +32,7 @@ class Focus(models.Model):
     be_focus_people = models.ForeignKey(to=UserInfo, on_delete=models.CASCADE, related_name='follow_me_user')
     focus_time = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('focus_people', 'be_focus_people')
+
 

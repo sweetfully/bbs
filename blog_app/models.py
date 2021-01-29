@@ -49,6 +49,7 @@ class Blog(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     praise_num = models.IntegerField()
+    dislike_num = models.IntegerField()
     comment_num = models.IntegerField()
     read_num = models.IntegerField()
     publisher = models.ForeignKey(to=UserInfo, on_delete=models.CASCADE)
@@ -68,7 +69,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=200)
     create_time = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE)
-    reply = models.ForeignKey(to='Comment', on_delete=models.CASCADE, null=None)
+    reply = models.ForeignKey(to='Comment', on_delete=models.CASCADE, null=True)
 
 
 # 点赞表
@@ -84,6 +85,9 @@ class Praise(models.Model):
     praise_time = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ('author', 'blog')
+
 
 # 收藏表
 class Favorite(models.Model):
@@ -96,3 +100,6 @@ class Favorite(models.Model):
     author = models.ForeignKey(to=UserInfo, on_delete=models.CASCADE)
     blog = models.ForeignKey(to=Blog, on_delete=models.CASCADE)
     create_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('author', 'blog')
