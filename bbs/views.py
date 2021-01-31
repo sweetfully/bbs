@@ -1,8 +1,10 @@
 from math import ceil
 
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from blog_app import models as blog_model
 from utils.result_dict_util import ResultDict
+from utils import sql_result_util
 
 every_page_content_num = 5
 
@@ -44,14 +46,29 @@ def home2(request):
         return render(request, "index2.html", {"blog_contents": blog_contents, "current_num": page, "num_pages": num_pages})
 
 
-def phb_list(request):
-    list_data = list(blog_model.Blog.objects.order_by("-praise_num")[0:4])
-    # print("list_data:", list_data[0].praise_num)
-    return ResultDict.get_success_response(list_data)
+def recommend_list(request):
+    recommend_type = int(getattr(request, request.method).get('type', 1))
+    recommend_num = 5
+    if recommend_type == 1:
+        list_data_set = blog_model.Blog.objects.raw(
+            "select count(1) as count, user_app_userinfo.id, user_app_userinfo.username,"
+            " user_app_userinfo.user_nick, user_app_userinfo.user_info, user_app_userinfo.avatar"
+            " from blog_app_blog LEFT JOIN user_app_userinfo on  blog_app_blog.publisher_id = user_app_userinfo.id"
+            " GROUP BY blog_app_blog.publisher_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
+    elif recommend_type == 2:
+        list_data_set = blog_model.Blog.objects.raw(
+            "select count(1) as count, user_app_userinfo.id, user_app_userinfo.username,"
+            " user_app_userinfo.user_nick, user_app_userinfo.user_info, user_app_userinfo.avatar"
+            " from user_app_focus LEFT JOIN user_app_userinfo on user_app_focus.be_focus_people_id = user_app_userinfo.id"
+            " GROUP BY user_app_focus.be_focus_people_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
+    else:
+        return ResultDict.get_error_response("排序方式有误")
+    print(sql_result_util.result_to_list(list_data_set))
+    return ResultDict.get_success_response(sql_result_util.result_to_list(list_data_set))
 
 
 def index(request):
-    return redirect('/home/')
+    return redirect('/home2/')
 
 
 # 错误页面函数

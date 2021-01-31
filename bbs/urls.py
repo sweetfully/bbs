@@ -28,7 +28,7 @@ urlpatterns = [
     path('home2/', views.home2, name='bbs_home2'),
     url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
-    url('phb_list/', views.phb_list),
+    path('get_recommend_people/', views.recommend_list),
     # url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
 

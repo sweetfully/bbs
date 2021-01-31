@@ -65,7 +65,7 @@ def create_blog():    # 可以创建38条数据
             blog_title_list = doc.xpath('//a[@class="post-item-title"]/text()')
             blog_content_list = doc.xpath('//p[@class="post-item-summary"]')
             for i in range(len(blog_title_list)):
-                blog_content = blog_content_list[i].xpath("string(.)").strip()[0: 50]
+                blog_content = blog_content_list[i].xpath("string(.)").strip()
                 user = random.choice(all_user_list)
                 all_type_list = blog_models.Types.objects.filter(user=user)
                 all_label_list = blog_models.Label.objects.filter(user=user)
@@ -75,6 +75,7 @@ def create_blog():    # 可以创建38条数据
                                                                content_paragraph=blog_content,
                                                                praise_num=0,
                                                                comment_num=0,
+                                                               dislike_num=0,
                                                                read_num=random.randint(0, 500),
                                                                publisher=user,
                                                                type=random.choice(all_type_list), )
