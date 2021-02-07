@@ -93,6 +93,11 @@ def pc_ajax_validate(request):
     return result
 
 
+def get_user_data(request):
+    print(request.path)
+    return render(request, "person_information.html")
+
+
 def logout(request):
     auth.logout(request)
     return redirect(LOGIN_URL)

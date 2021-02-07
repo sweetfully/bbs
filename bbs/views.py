@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from blog_app import models as blog_model
 from utils.result_dict_util import ResultDict
 from utils import sql_result_util
+from django.urls import reverse
 
 every_page_content_num = 5
 
@@ -49,7 +50,7 @@ def recommend_list(request):
 
 
 def index(request):
-    return redirect('/home2/')
+    return redirect(reverse('bbs_home'))
 
 
 # 错误页面函数
