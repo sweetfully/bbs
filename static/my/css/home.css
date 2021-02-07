@@ -1,8 +1,3 @@
-#boke_content{
-	margin-top: 3rem;
-	/* margin-left: -12rem; */
-}
-
 .home-avatar{
 	display:inline-block;
 	padding:0;
@@ -15,101 +10,35 @@
 	border-radius: 50%;
 }
 
- ul{
-	list-style:none
+.blog-avatar{
+    width: 70px;
+    height: 70px;
 }
 
-
-#boke_content #main_content li span{
-	color: #555;
-	font-size: 14px;
-}
-#boke_content #main_content li{
-	border: 1px solid #ddd;
-	border-radius: 0.5rem;
-	padding: 1.5rem;
-	color: #ddd;
-	font-size: 14px;
-}
-#boke_content #main_content li:hover{
-	background: #F5F5F5;
+.blog-content{
+    height: 60px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-#boke_content #main_content li a{
-	display: inline-block;
-	color: #555;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: bold;
-	text-decoration: none;
+.interval-left{
+	margin-left: 15px;
 }
 
-#boke_content #main_content li a span:hover{
-	color: orange;
+.interval-right{
+	margin-right: 15px;
 }
 
-#boke_content #main_content li a #small_content{
-	display: block;
-	height: 6rem;
-	overflow:hidden;
-}
-#boke_content #main_content li #bk_xx{
-	margin-bottom: 0;
-}
-
-#boke_content #main_content li #bk_xx span{
-	font-size: 13px;
-	padding-right: 2rem;
+.blog-body .blog-body-item{
+	margin-top: 0 !important;
+	padding: 25px 15px;
+	background-color: #fcfcfc;
+	margin-bottom: 15px;
+	box-shadow: 1px 0 2px rgba(0,0,0,0.2);
 }
 
-#zy_yc_content{
-	/* border: 1px solid #ddd; */
-	margin-top: 3rem;
+.recommend-body{
+	padding: 15px;
+    border: 0.5px solid #cccccc;
+	border-top-width: 0;
 }
-
-#zy_yc_content ul li{
-	padding: 0;
-}
-
-#zy_yc_content ul li a #dl_jz{
-	display: inline-block;
-	height: 1.5rem;
-	overflow:hidden;
-	margin-top: 15px;
-	-webkit-line-clamp: 1;
-}
-
-#zy_yc_content #gz_phb{
-	border: 1px solid #ddd;
-}
-#zy_yc_content #gz_phb li {
-	border: 1px solid #ddd;
-	color: #555;
-	border-top: 0;
-}
-#zy_yc_content #gz_phb li p{
-	padding-top: 2rem;
-}
-
-#zy_yc_content #gz_phb li:hover{
-	background: #F5F5F5;
-	cursor: pointer;
-}
-
-#zy_yc_content #dz_phb{
-	border: 1px solid #ddd;
-}
-#zy_yc_content #dz_phb li {
-	border: 1px solid #ddd;
-	color: #555;
-	border-top: 0;
-}
-#zy_yc_content #dz_phb li p{
-	padding-top: 2rem;
-}
-
-#zy_yc_content #dz_phb li:hover{
-	background: #F5F5F5;
-	cursor: pointer;
-}
-

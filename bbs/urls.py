@@ -27,7 +27,6 @@ urlpatterns = [
     path('user/', include(user_urls)),
     path('blog/', include(blog_urls)),
     path('home/', views.home, name='bbs_home'),
-    path('home2/', views.home2, name='bbs_home2'),
     url('^$', views.index),
     url(r'^avatars/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
     path('get_recommend_people/', views.recommend_list),

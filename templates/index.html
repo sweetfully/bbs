@@ -10,198 +10,90 @@
     <!--Bootstrap-->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'my/css/home.css' %}" rel="stylesheet">
+     <style>
+        body { padding-top: 70px; }
+    </style>
 </head>
 <body>
 {% include 'ydl_nav.html' %}
 
-<div class="container col-lg-2 col-md-2 col-sm-2 col-xs-2" style="margin-top: 3rem; padding-right: 0;">
-    <div class="list-group  col-md-6 col-md-offset-6 ">
-        <a href="#" class="list-group-item active">
-            分类栏
-        </a>
-        <a href="#" class="list-group-item">互联网</a>
-        <a href="#" class="list-group-item">JAVA</a>
-        <a href="#" class="list-group-item">设计</a>
-        <a href="#" class="list-group-item">画画</a>
-        <a href="#" class="list-group-item">美女</a>
-        <a href="#" class="list-group-item">帅哥</a>
-        <a href="#" class="list-group-item">建筑</a>
-        <a href="#" class="list-group-item">美女</a>
-        <a href="#" class="list-group-item">帅哥</a>
-        <a href="#" class="list-group-item">建筑</a>
-        <a href="#" class="list-group-item">美女</a>
-        <a href="#" class="list-group-item">帅哥</a>
-        <a href="#" class="list-group-item">建筑</a>
+<div class="container">
+    <!-左侧导航栏--->
+    <div class="col-md-2">
+        <div class="list-group">
+            <a href="#" class="list-group-item text-center active">分类栏</a>
+            <a href="#" class="list-group-item text-center">互联网</a>
+            <a href="#" class="list-group-item text-center">JAVA</a>
+            <a href="#" class="list-group-item text-center">设计</a>
+            <a href="#" class="list-group-item text-center">画画</a>
+            <a href="#" class="list-group-item text-center">美女</a>
+            <a href="#" class="list-group-item text-center">帅哥</a>
+            <a href="#" class="list-group-item text-center">建筑</a>
+            <a href="#" class="list-group-item text-center">美女</a>
+            <a href="#" class="list-group-item text-center">帅哥</a>
+            <a href="#" class="list-group-item text-center">建筑</a>
+            <a href="#" class="list-group-item text-center">美女</a>
+            <a href="#" class="list-group-item text-center">帅哥</a>
+            <a href="#" class="list-group-item text-center">建筑</a>
+        </div>
+    </div>
+    <!-中间内容--->
+    <div class="col-md-7">
+        <div class="blog-body">
+            {% for blog_content in blog_contents %}
+                <div class="media blog-body-item">
+                    <h3 class="media-heading">{{ blog_content.title }}</h3>
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object blog-avatar img-circle" src="{{ blog_content.publisher.avatar }}"
+                                 alt="用户头像" title="{{ blog_content.publisher.user_nick }}({{ blog_content.publisher.username }})">
+                        </a>
+                    </div>
+                    <div class="media-body blog-content">{{ blog_content.content_paragraph }}</div>
+                    <div class="media-bottom">
+                        <span class="text-primary">{{ blog_content.publisher.user_nick }}</span>
+                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                        <span>{{ blog_content.create_date }}</span>
+                        <span class="pull-right interval-left"><span
+                                class="glyphicon glyphicon-eye-open"></span>&nbsp;{{ blog_content.read_num }}</span>
+                        <span class="pull-right interval-left"><span
+                                class="glyphicon glyphicon-edit"></span>&nbsp;{{ blog_content.comment_num }}</span>
+                        <span class="pull-right"><span
+                                class="glyphicon glyphicon-thumbs-up"></span>&nbsp;{{ blog_content.praise_num }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!--导入分页组件-->
+        {% if blog_contents %}
+            {% load pageGenerate %}
+            {% page num_pages current_num request.path %}
+        {% endif %}
+    </div>
+
+    <!--右侧推荐人-->
+    <div class="col-md-3">
+        <div>
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#concern" id="concern-tab" role="tab" data-toggle="tab"
+                                                          aria-controls="concern" aria-expanded="true">关注量排行</a></li>
+                <li role="presentation" class=""><a href="#article" role="tab" id="article-tab" data-toggle="tab"
+                                                    aria-controls="article" aria-expanded="false">博客量排行</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="concern" aria-labelledby="concern-tab">
+                    <div class="recommend-body">
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="article" aria-labelledby="article-tab">
+                    <div class="recommend-body">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="container col-lg-6 col-md-6 col-sm-6  col-xs-6" id="boke_content">
-    <ul id="main_content" class="list-group">
-        {% for i in blog_contents %}
-            <li>
-                <span>{{ i.title }}</span>
-                <p class="row">
-                    <a class="col-md-2" style="display:inline-block;"><img src="/static/img/logo.png"
-                                                                           style="width: 6rem;height: 6rem;"></a>
-                    <a class="col-md-10" style="display:inline-block; ">
-							<span id="small_content">
-								{{ i.content_paragraph }}
-							</span>
-                    </a>
-                </p>
-                <p id="bk_xx">
-                    <span>{{ i.publisher }}</span>
-                    <span>{{ i.create_date }}</span>
-                    <span>点赞数:{{ i.praise_num }}</span>
-                    <span>阅读数:{{ i.read_num }}</span>
-                    <span>评论数:{{ i.comment_num }}</span>
-                </p>
-            </li>
-        {% endfor %}
 
-    </ul>
-    <!--导入分页组件-->
-    {#{% include 'page.html' %}#}
-    {% if blog_contents %}
-        {% load pageGenerate %}
-        {% page num_pages current_num request.path%}
-    {% endif %}
-</div>
-<div class="container col-lg-3 col-md-3 col-sm-3  col-xs-3" id="zy_yc_content">
-    <ul id="phb" class="nav nav-tabs" style="border-bottom: 0;">
-        <li data-toggle="tab" role="presentation" style="border: 1px solid #ddd;"
-            class="active col-lg-6 col-md-6 col-sm-6  col-xs-6 "><a id="gz_ph_xz" href="#"
-                                                            style="margin-right: 0; color: #555;text-align: center;">点赞数排名</a></li>
-        <li data-toggle="tab" role="presentation" style="border: 1px solid #ddd;border-left: 0 "
-            class="col-lg-6 col-md-6 col-sm-6  col-xs-6"><a id="dz_ph_xz" href="#"
-                                                            style="margin-right: 0; color: #555;text-align: center;">阅读量排名</a></li>
-    </ul>
-    <!-- 关注排行 -->
-    <ul class="list-group" id="gz_phb">
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        蒲冰冰是一个大佬蒲冰冰是一个大佬
-                    </font>
-                    <span><span>博客数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        蒲冰冰是一个大佬蒲冰冰是一个大佬
-                    </font>
-                    <span><span>博客数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        蒲冰冰是一个大佬蒲冰冰是一个大佬
-                    </font>
-                    <span><span>博客数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        蒲冰冰是一个大佬蒲冰冰是一个大佬
-                    </font>
-                    <span><span>博客数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-    </ul>
-    <!-- 点赞排行 -->
-    <ul class="list-group" id="dz_phb" style="display: none;">
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        撒旦发射点发射点发射点撒旦发射点发射点
-                    </font>
-                    <span><span>点赞数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        撒旦发射点发射点发射点撒旦发射点发射点
-                    </font>
-                    <span><span>点赞数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        撒旦发射点发射点发射点撒旦发射点发射点
-                    </font>
-                    <span><span>点赞数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-        <li>
-            <p class="row">
-                <a class="col-md-2 col-md-offset-1" style="display:inline-block;width: 6rem;height: 6rem;">
-                    <img src="/static/img/logo.png"
-                         style="width: 6rem;height: 6rem;display: inline-block;border: 1px solid #ddd; border-radius: 50%;">
-                </a>
-                <span style="padding-left: 15px ;font-size: 15px; font-weight: bold;">大佬昵称</span>
-                <a class="col-md-9" style="display:inline-block; padding-right: 0;	color: #555;">
-                    <font id="dl_jz" class="col-md-8" style="padding-left: 0;">
-                        撒旦发射点发射点发射点撒旦发射点发射点
-                    </font>
-                    <span><span>点赞数:</span>1546</span>
-                </a>
-            </p>
-        </li>
-    </ul>
-</div>
 </body>
 <!--jquery-->
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>

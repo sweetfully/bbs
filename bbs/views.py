@@ -24,26 +24,7 @@ def home(request):
     if num_pages == 0:
         return render(request, "index.html")
     else:
-        blog_contents = {"blog_contents": blog_contents, "current_num": page, "num_pages": num_pages}
-        return render(request, "index.html", blog_contents)
-
-
-def home2(request):
-    # 得到请求链接中page的值，如果没值设置默认值1
-    page = int(getattr(request, request.method).get('page', 1))
-    # 计算当前页的第一条记录
-    start_num = (page - 1) * every_page_content_num
-    # 计算当前页的最后一条记录
-    end_num = page * every_page_content_num
-    # limit限制取数
-    blog_contents = blog_model.Blog.objects.all()[start_num:end_num]
-    # 总页数（向上取整）
-    num_pages = ceil(blog_model.Blog.objects.count() / every_page_content_num)
-    # 如果没有数据，不显示分页组件和列表
-    if num_pages == 0:
-        return render(request, "index2.html")
-    else:
-        return render(request, "index2.html", {"blog_contents": blog_contents, "current_num": page, "num_pages": num_pages})
+        return render(request, "index.html", {"blog_contents": blog_contents, "current_num": page, "num_pages": num_pages})
 
 
 def recommend_list(request):
