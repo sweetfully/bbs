@@ -11,8 +11,8 @@
 }
 
 .blog-avatar{
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
 }
 
 .blog-content{
@@ -32,12 +32,9 @@
 .blog-body .blog-body-item{
 	margin-top: 0 !important;
 	padding: 25px 15px;
-    border: 0.5px solid #cccccc;
-	border-top-width: 0;
-}
-
-.blog-body .blog-body-item:nth-child(1){
-	border-top-width: 0.5px;
+	background-color: #fcfcfc;
+	margin-bottom: 15px;
+	box-shadow: 1px 0px 2px rgba(0,0,0,0.2);
 }
 
 .recommend-body{

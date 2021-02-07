@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ user.user_nick }}的博客</title>
+
+    {% load static %}
+    <!--Bootstrap-->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my/css/blog_home.css' %}" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+{% include 'ydl_nav.html' %}
+<div class="master-panel">
+    <div class="container">
+        <div class="master-info">
+            <img class="img-circle blog-avatar" src="{{ user.avatar }}"
+                 alt="用户头像" title="{{ blog_content.publisher.user_nick }}({{ blog_content.publisher.username }})">
+            <h4>用户昵称：{{ user.user_nick }}</h4>
+            <h5>用户ID：{{ user.username }}</h5>
+            <div class="container">
+                <div class="col-md-2 col-md-offset-2">
+                    <span>博客数：500</span>
+                </div>
+                <div class="col-md-2">
+                    <span>阅读量：500</span>
+                </div>
+                <div class="col-md-2">
+                    <span>粉丝数：500</span>
+                </div>
+                <div class="col-md-2">
+                    <span>作者排名：500</span>
+                </div>
+            </div>
+            <div class="concern-master">
+                <button class="btn btn-primary">关注</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <table class="table blog-menu">
+        <thead>
+        <tr>
+            <th class="my-menu onactive">博客</th>
+            <th class="my-menu">收藏</th>
+            <th class="my-menu">关注 / 粉丝</th>
+            <th class><input name="" type="text" class="form-control" placeholder="搜索ta的博客"></th>
+        </tr>
+        </thead>
+    </table>
+    <div class="content">
+        <div class="sort-way">
+            <p class="onactive">时间排序 <span class="glyphicon glyphicon-triangle-bottom"></span></p>
+            <p>点赞 <span class="glyphicon glyphicon-triangle-bottom"></span></p>
+            <p>阅读量 <span class="glyphicon glyphicon-triangle-bottom"></span></p>
+        </div>
+
+        <div class="blog-body">
+            {% for blog_content in blog_contents %}
+                <div class="media blog-body-item">
+                    <h3 class="media-heading">{{ blog_content.title }}</h3>
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object blog-avatar img-circle" src="{{ blog_content.publisher.avatar }}"
+                                 alt="用户头像"
+                                 title="{{ blog_content.publisher.user_nick }}({{ blog_content.publisher.username }})">
+                        </a>
+                    </div>
+                    <div class="media-body blog-content">{{ blog_content.content_paragraph }}</div>
+                    <div class="media-bottom">
+                        <span class="text-primary">{{ blog_content.publisher.user_nick }}</span>
+                        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                        <span>{{ blog_content.create_date }}</span>
+                        <span class="pull-right interval-left"><span
+                                class="glyphicon glyphicon-eye-open"></span>&nbsp;{{ blog_content.read_num }}</span>
+                        <span class="pull-right interval-left"><span
+                                class="glyphicon glyphicon-edit"></span>&nbsp;{{ blog_content.comment_num }}</span>
+                        <span class="pull-right"><span
+                                class="glyphicon glyphicon-thumbs-up"></span>&nbsp;{{ blog_content.praise_num }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="content" style="display: none">
+        <div class="favorites-list">
+            <div>
+                <h4>默认收藏夹</h4>
+                <h5>博客数：50</h5>
+            </div>
+            <div class="favorites-date">
+                更新于：2021-01-03
+            </div>
+        </div>
+    </div>
+    <div class="content" style="display: none">
+        <div class="concern-type">
+            <p class="onactive">关注</p>
+            <p>粉丝</p>
+            <p>互相关注</p>
+        </div>
+        <div class="concern-list">
+            <div class="media concern-list-item">
+                <div class="media-left">
+                    <a href="#"><img class="media-object blog-avatar img-circle" src="/avatars/default.png" alt="用户头像" title=""></a>
+                </div>
+                <div class="media-body"><h4 class="media-heading">用户昵称</h4>
+                    用户描述
+                </div>
+                <div class="concern-operation">
+                    <a href="#" class="btn btn-primary">取消关注</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--jquery-->
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<!--bootstrap js-->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script>
+    $(".blog-menu th.my-menu").on("click", function () {
+        $(".blog-menu th.my-menu").each(function () {
+            $(this).removeClass("onactive");
+        });
+        $(this).addClass("onactive");
+
+        var menu_index = $(".blog-menu th.my-menu").index(this);
+        $(".content").each(function () {
+            $(this).css({"display": "none"});
+        });
+        $(".content").eq(menu_index).css({"display": "block"});
+    });
+    $(".sort-way p").on("click", function () {
+        if ($(this).hasClass("onactive")) {    // 判断点击的是否是选中的，若是则逆向排序，否则切换排序方式
+            var $span = $(this).find("span");
+            if ($span.hasClass("glyphicon-triangle-bottom")) {
+                $span.removeClass("glyphicon-triangle-bottom");
+                $span.addClass("glyphicon-triangle-top");
+            } else if ($span.hasClass("glyphicon-triangle-top")) {
+                $span.removeClass("glyphicon-triangle-top");
+                $span.addClass("glyphicon-triangle-bottom");
+            }
+        } else {
+            $(".sort-way p").each(function () {
+                $(this).removeClass("onactive");
+            });
+            $(this).addClass("onactive");
+        }
+    });
+    $(".concern-type p").on("click", function () {
+        $(".concern-type p").each(function () {
+            $(this).removeClass("onactive");
+        });
+        $(this).addClass("onactive");
+    });
+</script>
+</html>

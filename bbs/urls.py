@@ -19,11 +19,13 @@ from django.views import static
 from django.views.static import serve
 from django.urls import path, include
 from user_app import urls as user_urls
+from blog_app import urls as blog_urls
 from bbs import views, settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(user_urls)),
+    path('blog/', include(blog_urls)),
     path('home/', views.home, name='bbs_home'),
     path('home2/', views.home2, name='bbs_home2'),
     url('^$', views.index),
