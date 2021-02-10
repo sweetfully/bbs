@@ -1,8 +1,223 @@
 {% extends 'person_manager_base.html' %}
+{% load static %}
 
 {% block title %}
     个人资料
 {% endblock %}
+{% block page-css %}
+    <link href="{% static 'my/css/person_center.css' %}" rel="stylesheet">
+{% endblock %}
 {% block page-content %}
-    11111111
+    <div class="media user-introduced">
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object user-avatar" src="/avatars/default.png" alt="头像">
+            </a>
+        </div>
+        <div class="media-body">
+            <p>用户昵称：马丁·路德·金</p>
+            <span>用户ID：ID123456</span>
+        </div>
+        <div class="user-age">
+            <span>博龄: 3年</span>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <span>基本信息</span>
+                <div class="pull-right edit">
+                    <span><span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form novalidate class="form-horizontal register-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="nickname">昵称：</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="nickname" id="nickname" disabled value="马丁·路德·金">
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="userid">用户ID：</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="userid" id="userid" disabled value="ID123456">
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="age">年龄：</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="age" id="age" disabled value="18">
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">性别：</label>
+                    <div class="col-md-6">
+                        <label class="radio-inline"><input type="radio" name="sex" value="男" disabled checked>男</label>
+                        <label class="radio-inline"><input type="radio" name="sex" value="女" disabled>女</label>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="birthday">出生日期：</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" name="birthday" id="birthday" disabled value="2021-02-18">
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="hometown">家乡：</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="hometown" id="hometown" disabled value="北京市圆明园小区">
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="introduce">个人简介：</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" rows="5" name="introduce" id="introduce" disabled>我有一个梦想</textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel-primary panel">
+        <div class="panel-heading">
+            <div class="panel-title">兴趣类别</div>
+        </div>
+        <div class="panel-body">
+            <div class="tag">
+                <span class="tag-title col-md-2">喜爱：</span>
+                <div class="tag-tip col-md-10">
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                </div>
+            </div>
+            <div class="tag">
+                <span class="tag-title col-md-2">屏蔽：</span>
+                <div class="tag-tip col-md-10">
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">科学<span class="tag-delete">&times;</span></span>
+                    <span class="tag-tip-item">生物<span class="tag-delete">&times;</span></span>
+                </div>
+            </div>
+            <div class="tag">
+                <span class="tag-title col-md-2">推荐类别：</span>
+                <div class="tag-tip col-md-10">
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">科学<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                    <span class="tag-tip-item tag-recommend">生物<a href="#" class="tag-operation tag-add">+</a><a href="#" class="tag-operation tag-reduce">-</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block page-js %}
+<script>
+$(".edit").on("click", function(){
+    var innerText = $(this).html();
+    if (innerText.search("完成") == -1){
+        $("#nickname").removeAttr("disabled");
+        $("#userid").parent().next().find("span").html("用户ID不可变");
+        $("#age").removeAttr("disabled");
+        $("input[name='sex']").removeAttr("disabled");
+        $("#birthday").removeAttr("disabled");
+        $("#hometown").removeAttr("disabled");
+        $("#introduce").removeAttr("disabled");
+        $(this).html("<span><span class='glyphicon glyphicon-ok'></span>&nbsp;完成</span>")
+    } else {
+        $("#nickname").attr("disabled","disabled");
+        $("#age").attr("disabled","disabled");
+        $("input[name='sex']").attr("disabled","disabled");
+        $("#birthday").attr("disabled","disabled");
+        $("#hometown").attr("disabled","disabled");
+        $("#introduce").attr("disabled","disabled");
+        $(this).html("<span><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;编辑</span>")
+    }
+});
+</script>
 {% endblock %}

@@ -1,0 +1,85 @@
+.user-introduced{
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.user-introduced .user-avatar{
+	padding:0;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+}
+
+.media-body{
+    line-height: 30px;
+}
+
+.user-introduced .user-age{
+    position: absolute;
+    right: 0;
+    top: 35px;
+    line-height: 30px;
+    margin-top: -15px;
+}
+
+.edit{
+    cursor: pointer;
+}
+
+.help-block{
+    color: red;
+}
+
+.tag .tag-title{
+    text-align: right;
+    font-weight: bolder;
+}
+
+.tag .tag-tip-item{
+    padding: 5px 15px;
+    background-color: #337ab7;
+    color: white;
+    margin-bottom: 8px;
+    display: inline-block;
+    position: relative;
+    border-radius: 5px;
+}
+
+.tag .tag-delete{
+    position:absolute;
+    right: 0;
+    top: 0;
+    padding: 3px;
+    line-height: 8px;
+    color: #EFEFEF;
+    cursor: pointer;
+}
+
+.tag .tag-delete:hover{
+    color: #BCBCBC;
+}
+
+.tag .tag-recommend{
+    padding-right: 40px;
+}
+
+.tag .tag-operation{
+    padding: 5px;
+    cursor: pointer;
+    color: #EFEFEF;
+    position: absolute;
+    top: 0;
+}
+
+.tag .tag-add{
+    right: 20px;
+}
+
+.tag .tag-reduce{
+    right: 5px;
+}
+
+.tag .tag-operation:hover, .tag .tag-operation:focus{
+    color: #BCBCBC;
+    text-decoration: none;
+}
