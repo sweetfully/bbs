@@ -211,6 +211,7 @@ $(".edit").on("click", function(){
         $(this).html("<span><span class='glyphicon glyphicon-ok'></span>&nbsp;完成</span>")
     } else {
         $("#nickname").attr("disabled","disabled");
+        $("#userid").parent().next().find("span").html("");
         $("#age").attr("disabled","disabled");
         $("input[name='sex']").attr("disabled","disabled");
         $("#birthday").attr("disabled","disabled");

@@ -7,4 +7,5 @@ urlpatterns = [
     path('logout', views.logout),
     path('get_captcha/', views.pc_get_captcha),
     path('user_data/', views.get_user_data),
+    path('account_safe/', views.account_safe_set),
 ]

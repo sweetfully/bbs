@@ -1,0 +1,167 @@
+{% extends 'person_manager_base.html' %}
+{% load static %}
+
+{% block title %}
+    账户安全
+{% endblock %}
+
+{% block page-css %}
+    <link href="{% static 'my/css/account_safe.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block page-content %}
+    <div class="board">
+        <div class="board-head bg-primary">
+            <div class="board-title">
+                <h4>密码管理</h4>
+            </div>
+            <div class="board-info">
+                <span class="glyphicon glyphicon-triangle-top board-manager"></span>
+            </div>
+        </div>
+        <div class="board-body" style="display: none">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="username">旧密码：</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="username" name="username" autocomplete="off"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="password">新密码：</label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" id="password" name="password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="re-password">确认密码：</label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" id="re-password" name="re-password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input id="popup-submit" type="button" class="btn-primary btn" value="确定"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="board">
+        <div class="board-head bg-primary">
+            <div class="board-title">
+                <h4>邮箱绑定</h4>
+            </div>
+            <div class="board-info">
+                <span>未绑定</span>
+                <span class="glyphicon glyphicon-triangle-top board-manager"></span>
+            </div>
+        </div>
+        <div class="board-body" style="display: none">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="re-password">邮箱：</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="email" name="email"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input id="popup-submit" type="button" class="btn-primary btn" value="确定"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="board">
+        <div class="board-head bg-primary">
+            <div class="board-title">
+                <h4>手机号绑定</h4>
+            </div>
+            <div class="board-info">
+                <span>未绑定</span>
+                <span class="glyphicon glyphicon-triangle-top board-manager"></span>
+            </div>
+        </div>
+        <div class="board-body" style="display: none">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="re-password">手机号：</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="phone" name="phone"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input id="popup-submit" type="button" class="btn-primary btn" value="确定"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="board">
+        <div class="board-head bg-primary">
+            <div class="board-title">
+                <h4>登录记录</h4>
+            </div>
+            <div class="board-info">
+                <span class="glyphicon glyphicon-triangle-top board-manager"></span>
+            </div>
+        </div>
+        <div class="board-body" style="display: none">
+            <div class="login-node">
+                <div class="login-node-tip text-danger">
+                若发现异常登录，请尽快修改密码！！！
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：192.168.0.1 (中国重庆移动)
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：127.0.0.1 (本机)
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：192.168.0.1 (中国重庆移动)
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：127.0.0.1 (本机)
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：192.168.0.1 (中国重庆移动)
+                </div>
+                <div class="login-node-item">
+                    2019-02-31 24:00:00 登录于 IP：127.0.0.1 (本机)
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page-js %}
+<script>
+$(function () {
+    function initState() {
+        $(".board .board-body").css({display: "none"})
+        $labels = $(".board .board-head .board-manager");
+        $labels.removeClass("glyphicon-triangle-bottom");
+        $labels.addClass("glyphicon-triangle-top");
+    }
+    initState();
+
+    $(".board .board-head").on("click", function () {
+        $dropDown = $(this).find(".board-manager");
+        if ($dropDown.hasClass("glyphicon-triangle-top")){
+            initState();
+            $dropDown.removeClass("glyphicon-triangle-top");
+            $dropDown.addClass("glyphicon-triangle-bottom");
+            $(this).next(".board-body").css({display: "block"})
+        } else {
+            initState();
+        }
+
+    });
+});
+</script>
+{% endblock %}

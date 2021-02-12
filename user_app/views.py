@@ -98,6 +98,10 @@ def get_user_data(request):
     return render(request, "person_information.html")
 
 
+def account_safe_set(request):
+    return render(request, "account_safe.html")
+
+
 def logout(request):
     auth.logout(request)
     return redirect(LOGIN_URL)
