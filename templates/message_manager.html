@@ -1,0 +1,151 @@
+{% extends 'person_manager_base.html' %}
+{% load static %}
+
+{% block title %}
+    消息列表
+{% endblock %}
+
+{% block page-css %}
+<link href="{% static 'my/css/message_manager.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block page-content %}
+
+<div class="panel panel-primary message-list">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <span>消息通知列表</span>
+            <div class="pull-right edit">
+                <span class="message-setting-btn"><span class="glyphicon glyphicon-pencil"></span>&nbsp;设置</span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="clearfix">
+            <div class="pull-left">
+                <span>消息类型：</span>
+                <select name="message-type" class="form-control" style="display: inline-block; width: auto">
+                    <option>全部</option>
+                    <option>评论通知</option>
+                    <option>关注通知</option>
+                    <option>点赞通知</option>
+                    <option>踩通知</option>
+                </select>
+            </div>
+            <div class="pull-right">
+                <span class="clear-message">清除全部未读</span>
+            </div>
+        </div>
+        <div class="message-body">
+            <div class="message-item">
+                <span class="red-point"></span>
+                <a href="#">张三</a> 在 2021-02-02 00:00:00 给您的 “<a href="#">我真的还想再活一万年！</a>” 点了赞。
+            </div>
+            <div class="message-item">
+                <span class="red-point"></span>
+                <a href="#">李四</a> 在 2021-02-02 00:00:00 评论了您的 “<a href="#">我真的还想再活一万年！</a>”。评论内容为：我也想活500年
+            </div>
+            <div class="message-item">
+                <span class="red-point"></span>
+                <a href="#">王五</a> 在 2021-02-02 00:00:00 关注了您，继续加油！
+            </div>
+            <div class="message-item">
+                <a href="#">张三</a> 在 2021-02-02 00:00:00 给您的 “<a href="#">我真的还想再活一万年！</a>” 点了赞。
+            </div>
+            <div class="message-item">
+                <a href="#">李四</a> 在 2021-02-02 00:00:00 评论了您的 “<a href="#">我真的还想再活一万年！</a>”。评论内容为：我也想活500年
+            </div>
+            <div class="message-item">
+                <a href="#">王五</a> 在 2021-02-02 00:00:00 关注了您，继续加油！
+            </div>
+        </div>
+        {% load pageGenerate %}
+        {% page 20 1 request.path %}
+    </div>
+</div>
+<div class="message-setting" style="display: none; opacity: 0">
+    <div>
+        <span class="setting-back"><span class="glyphicon glyphicon-arrow-left"></span> 返回</span>
+    </div>
+    <div class="setting-body">
+        <div class="media setting-item">
+            <div class="media-body">
+                <h4 class="media-heading">接收评论通知</h4>
+                <span>关闭后别人对我的评论将不再提醒</span>
+            </div>
+            <div class="media-right">
+                <label class="switch-btn">
+                    <input class="checked-switch" type="checkbox" checked />
+                    <span class="text-switch"></span>
+                    <span class="toggle-btn"></span>
+                </label>
+            </div>
+        </div>
+        <div class="media setting-item">
+            <div class="media-body">
+                <h4 class="media-heading">接收关注通知</h4>
+                <span>关闭后别人关注我将不再提醒</span>
+            </div>
+            <div class="media-right">
+                <label class="switch-btn">
+                    <input class="checked-switch" type="checkbox" checked />
+                    <span class="text-switch"></span>
+                    <span class="toggle-btn"></span>
+                </label>
+            </div>
+        </div>
+        <div class="media setting-item">
+            <div class="media-body">
+                <h4 class="media-heading">接收点赞通知</h4>
+                <span>关闭后别人对我的点赞将不再提醒</span>
+            </div>
+            <div class="media-right">
+                <label class="switch-btn">
+                    <input class="checked-switch" type="checkbox" checked />
+                    <span class="text-switch"></span>
+                    <span class="toggle-btn"></span>
+                </label>
+            </div>
+        </div>
+        <div class="media setting-item">
+            <div class="media-body">
+                <h4 class="media-heading">接收踩通知</h4>
+                <span>关闭后别人对我的踩论将不再提醒</span>
+            </div>
+            <div class="media-right">
+                <label class="switch-btn">
+                    <input class="checked-switch" type="checkbox" checked />
+                    <span class="text-switch"></span>
+                    <span class="toggle-btn"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page-js %}
+<script>
+$(function () {
+    $(".clear-message").on("click", function(){
+        $(".message-item .red-point").remove();
+    });
+    $(".message-setting-btn").on("click", function(){
+          $(".message-list").animate({"opacity": 0}, 1000);
+          setTimeout(function(){
+              $(".message-list").css({"display": "none"});
+              $(".message-setting").css({"display": "block"});
+              $(".message-setting").animate({"opacity": 1}, 1000);
+          }, 1000);
+    });
+    $(".setting-back").on("click", function(){
+          $(".message-setting").animate({"opacity": 0}, 1000);
+          setTimeout(function(){
+              $(".message-setting").css({"display": "none"});
+              $(".message-list").css({"display": "block"});
+              $(".message-list").animate({"opacity": 1}, 1000);
+          }, 1000);
+    });
+});
+</script>
+{% endblock %}

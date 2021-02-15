@@ -3,4 +3,5 @@ from blog_app import views
 
 urlpatterns = [
     re_path('^(?P<username>ID[0-9]{6})/home/$', views.get_blog_home),
+    path('message_manager/', views.message_manager_list),
 ]

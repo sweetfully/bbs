@@ -15,3 +15,7 @@ def get_blog_home(request, username):
         print(len(blog_set), blog_set)
         return render(request, "blog_home.html", {"user": user_set[0], "blog_contents": blog_set})
     return render(request, "error.html")
+
+
+def message_manager_list(request):
+    return render(request, "message_manager.html")
