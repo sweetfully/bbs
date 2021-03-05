@@ -27,7 +27,5 @@ class ResultDict():
         return ResultDict(Status.NEED_LOGIN.value, "请登录", data).__to_json_response()
 
     def __to_json_response(self):
-        ret = {"status": self.status, "msg": self.msg}
-        if self.data:
-            ret["data"] = self.data
+        ret = {"status": self.status, "msg": self.msg, "data": self.data}
         return JsonResponse(ret)

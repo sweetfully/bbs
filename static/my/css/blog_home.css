@@ -158,3 +158,9 @@
     line-height: 30px;
     margin-top: -15px;
 }
+
+.blog-content-bottom{
+	margin: 40px;
+    text-align: center;
+    color: #7e7e7e;
+}

@@ -43,6 +43,7 @@ class Blog(models.Model):
     # 分类id    ->    分类表
     # author    ->    user表
     # 标签id <->    标签表
+    # 博客评分（阅读量 * 1 + 点赞数 * 2 + 踩 * (-2) + 评论数 * 5）
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=400)
     content_paragraph = models.CharField(max_length=200)
@@ -55,6 +56,7 @@ class Blog(models.Model):
     publisher = models.ForeignKey(to=UserInfo, on_delete=models.CASCADE)
     type = models.ForeignKey(to=Types, on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(to=Label)
+    score = models.IntegerField(default=0)
 
 
 # 评论表
