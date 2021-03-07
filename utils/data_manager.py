@@ -123,6 +123,16 @@ def create_blog_favorite(num):
         pass
 
 
+def create_user_detail_info():
+    all_user_list = app_models.UserInfo.objects.all()
+    for user in all_user_list:
+        user_detail_info = app_models.UserDetailInfo.objects.create(age=random.randint(10, 50),
+                                                                    sex=random.randint(0, 1),
+                                                                    hometown="山东省青岛市")
+        user.detail_info = user_detail_info
+        user.save()
+
+
 if __name__ == "__main__":
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bbs.settings')  # 这句话在manage.py中可以复制
     import django
@@ -138,4 +148,5 @@ if __name__ == "__main__":
     # create_blog_comment(100)
     # create_blog_praise(300)
     # create_blog_favorite(250)
+    # create_user_detail_info()
 

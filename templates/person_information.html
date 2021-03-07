@@ -11,15 +11,18 @@
     <div class="media user-introduced">
         <div class="media-left">
             <a href="#">
-                <img class="media-object user-avatar" src="/avatars/default.png" alt="头像">
+                <label for="avatar">
+                    <img class="media-object user-avatar" src="{{ request.user.avatar }}" alt="头像">
+                </label>
+                <input type="file" name="avatar" id="avatar" style="display: none" accept="image/*">
             </a>
         </div>
         <div class="media-body">
-            <p>用户昵称：马丁·路德·金</p>
-            <span>用户ID：ID123456</span>
+            <p class="user-nick">用户昵称：{{ request.user.user_nick }}</p>
+            <span>用户ID：{{ request.user.username }}</span>
         </div>
         <div class="user-age">
-            <span>博龄: 3年</span>
+            <span>博龄: {{ blog_age }}</span>
         </div>
     </div>
     <div class="panel panel-primary">
@@ -37,7 +40,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="nickname">昵称：</label>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="nickname" id="nickname" disabled value="马丁·路德·金">
+                        <input type="text" class="form-control" name="nickname" id="nickname" disabled value="{{ request.user.user_nick }}">
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -46,7 +49,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="userid">用户ID：</label>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="userid" id="userid" disabled value="ID123456">
+                        <input type="text" class="form-control" name="userid" id="userid" disabled value="{{ request.user.username }}">
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -55,7 +58,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="age">年龄：</label>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="age" id="age" disabled value="18">
+                        <input type="text" class="form-control" name="age" id="age" disabled value="{{ request.user.detail_info.age }}">
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -64,8 +67,8 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">性别：</label>
                     <div class="col-md-6">
-                        <label class="radio-inline"><input type="radio" name="sex" value="男" disabled checked>男</label>
-                        <label class="radio-inline"><input type="radio" name="sex" value="女" disabled>女</label>
+                        <label class="radio-inline"><input id="man" type="radio" name="sex" value="1" disabled {% if request.user.detail_info.sex == 1 %}checked{% endif  %}>男</label>
+                        <label class="radio-inline"><input id="woman" type="radio" name="sex" value="0" disabled {% if request.user.detail_info.sex == 0 %}checked{% endif  %}>女</label>
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -74,7 +77,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="birthday">出生日期：</label>
                     <div class="col-md-6">
-                        <input type="date" class="form-control" name="birthday" id="birthday" disabled value="2021-02-18">
+                        <input type="date" class="form-control" name="birthday" id="birthday" disabled value="{{ request.user.detail_info.birthday | date:'Y-m-d' }}">
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -83,7 +86,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="hometown">家乡：</label>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" name="hometown" id="hometown" disabled value="北京市圆明园小区">
+                        <input type="text" class="form-control" name="hometown" id="hometown" disabled value="{{ request.user.detail_info.hometown }}">
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -92,7 +95,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="introduce">个人简介：</label>
                     <div class="col-md-6">
-                        <textarea class="form-control" rows="5" name="introduce" id="introduce" disabled>我有一个梦想</textarea>
+                        <textarea class="form-control" rows="5" name="introduce" id="introduce" disabled>{{ request.user.user_info }}</textarea>
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>
@@ -197,28 +200,6 @@
     </div>
 {% endblock %}
 {% block page-js %}
-<script>
-$(".edit").on("click", function(){
-    var innerText = $(this).html();
-    if (innerText.search("完成") == -1){
-        $("#nickname").removeAttr("disabled");
-        $("#userid").parent().next().find("span").html("用户ID不可变");
-        $("#age").removeAttr("disabled");
-        $("input[name='sex']").removeAttr("disabled");
-        $("#birthday").removeAttr("disabled");
-        $("#hometown").removeAttr("disabled");
-        $("#introduce").removeAttr("disabled");
-        $(this).html("<span><span class='glyphicon glyphicon-ok'></span>&nbsp;完成</span>")
-    } else {
-        $("#nickname").attr("disabled","disabled");
-        $("#userid").parent().next().find("span").html("");
-        $("#age").attr("disabled","disabled");
-        $("input[name='sex']").attr("disabled","disabled");
-        $("#birthday").attr("disabled","disabled");
-        $("#hometown").attr("disabled","disabled");
-        $("#introduce").attr("disabled","disabled");
-        $(this).html("<span><span class=\"glyphicon glyphicon-pencil\"></span>&nbsp;编辑</span>")
-    }
-});
-</script>
+<script src="{% static 'my/js/setup-ajax.js' %}"></script>
+<script src="{% static 'my/js/user_info.js' %}"></script>
 {% endblock %}

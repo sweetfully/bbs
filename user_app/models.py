@@ -19,6 +19,15 @@ class UserInfo(AbstractUser):
     avatar = models.FileField(upload_to='avatars', default='/avatars/default.png')
     user_info = models.CharField(max_length=200, null=True)
     focus = models.ManyToManyField(to='UserInfo', through='Focus')
+    detail_info = models.OneToOneField(to="UserDetailInfo", on_delete=models.CASCADE)
+
+
+# 用户的详细信息表
+class UserDetailInfo(models.Model):
+    age = models.IntegerField(default=0)
+    sex = models.BooleanField(default=True)
+    birthday = models.DateField(default='2010-01-01')
+    hometown = models.CharField(max_length=50, null=False)
 
 
 # 关注表

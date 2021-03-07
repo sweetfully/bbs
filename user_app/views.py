@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect
-
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from utils.result_dict_util import ResultDict
 from utils.tmp_util import get_random_by_len
+from utils import date_util
 from utils import sql_result_util
-from user_app.models import UserInfo, Focus
+from user_app.models import UserInfo, Focus, UserDetailInfo
 from user_app.forms import RegisterForm
 from geetest import GeetestLib
 from configs import geetest_config
-from django.contrib import auth
 from bbs.settings import LOGIN_URL
 
 FOCUS_NUM_BY_PAGE = 5
@@ -173,9 +174,56 @@ def get_attention_user_list(request):
     return ResultDict.get_success_response(focus_dict_list)
 
 
+@login_required
 def get_user_data(request):
-    print(request.path)
-    return render(request, "person_information.html")
+    blog_age = date_util.get_date_interval(request.user.date_joined)
+    return render(request, "person_information.html", {"blog_age": blog_age})
+
+
+@login_required
+def change_avatar(request):
+    avatar = request.FILES.get("avatar")
+    print("头像：", avatar)
+    if avatar:
+        try:
+            request.user.avatar = avatar
+            request.user.save()
+        except Exception:
+            return ResultDict.get_error_response("头像更新失败")
+        return ResultDict.get_success_response(str(request.user.avatar))
+    else:
+        ResultDict.get_error_response("没有传递头像信息")
+
+
+@login_required
+def change_user_info(request):
+    nickname = request.POST.get("nickname")
+    age = request.POST.get("age")
+    sex = request.POST.get("sex")
+    birthday = request.POST.get("birthday")
+    hometown = request.POST.get("hometown")
+    user_info = request.POST.get("userInfo")
+    if nickname:
+        request.user.user_nick = nickname
+        request.user.detail_info.age = age
+        request.user.detail_info.sex = sex
+        request.user.detail_info.birthday = birthday
+        request.user.detail_info.hometown = hometown
+        request.user.user_info = user_info
+        request.user.detail_info.save()
+        request.user.save()
+        # 生成一个对象，用于前端重新更新值
+        dic = dict()
+        dic["username"] = request.user.username
+        dic["user_nick"] = request.user.user_nick
+        dic["age"] = request.user.detail_info.age
+        dic["sex"] = request.user.detail_info.sex
+        dic["birthday"] = request.user.detail_info.birthday
+        dic["hometown"] = request.user.detail_info.hometown
+        dic["user_info"] = request.user.user_info
+        return ResultDict.get_success_response(dic)
+    else:
+        return ResultDict.get_error_response("用户昵称不能为空")
 
 
 def account_safe_set(request):

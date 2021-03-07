@@ -91,7 +91,7 @@
                 data: formData,
                 success: function (data) {
                     console.log(data, typeof(data.msg));
-                    if (data.status == 0){
+                    if (data.status === 0){
                         location.href = data.data
                     }else {
                         if (typeof(data.msg) != "string"){

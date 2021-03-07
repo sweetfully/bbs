@@ -9,5 +9,7 @@ urlpatterns = [
     path('like_or_no_user/', views.set_attention_user),
     path('like_list/', views.get_attention_user_list),
     path('user_data/', views.get_user_data),
+    path('update_avatar/', views.change_avatar),
+    path('update_user_info/', views.change_user_info),
     path('account_safe/', views.account_safe_set),
 ]

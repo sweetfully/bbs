@@ -9,10 +9,8 @@
     {% load static %}
     <!--Bootstrap-->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my/css/nav.css' %}" rel="stylesheet">
     {% block page-css %}{% endblock %}
-     <style>
-        body { padding-top: 70px; }
-    </style>
 </head>
 <body>
 {% include 'ydl_nav.html' %}
