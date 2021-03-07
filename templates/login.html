@@ -55,7 +55,15 @@
 <script src="{% static 'geetest/js/gt.js' %}"></script>
 <script src="{% static 'my/js/setup-ajax.js' %}"></script>
 <script>
-
+    function getQueryVariable(variable){
+           var query = window.location.search.substring(1);
+           var vars = query.split("&");
+           for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] === variable){return pair[1];}
+           }
+           return false;
+    }
     var handlerPopup = function (captchaObj) {
         captchaObj.onSuccess(function () {
             var validate = captchaObj.getValidate();
@@ -72,8 +80,13 @@
                 },
                 success: function (data) {
                     console.log(data, typeof(data.msg));
-                    if (data.status == 0){
-                        location.href = data.data
+                    if (data.status === 0){
+                        var next = getQueryVariable("next");
+                        if (next){
+                            location.href = next;
+                        }else {
+                            location.href = data.data;
+                        }
                     }else {
                         $(".error-info").text(data.msg);
                     }

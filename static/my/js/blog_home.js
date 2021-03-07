@@ -32,7 +32,7 @@ function like_user(btn, userId, likeOrNot){
                 /// todo 弹框
                 alert(data.msg)
             } else if (data.status === 10){
-                document.location = "/user/login"
+                document.location = "/user/login?next=" + document.location.pathname
             }
         },
 
