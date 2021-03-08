@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <form novalidate class="form-horizontal register-form" method="post">
+            <form novalidate class="form-horizontal info-form" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="control-label col-md-2" for="nickname">昵称：</label>
@@ -93,9 +93,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="introduce">个人简介：</label>
+                    <label class="control-label col-md-2" for="userInfo">个人简介：</label>
                     <div class="col-md-6">
-                        <textarea class="form-control" rows="5" name="introduce" id="introduce" disabled>{{ request.user.user_info }}</textarea>
+                        <textarea class="form-control" rows="5" name="userInfo" id="userInfo" disabled>{{ request.user.user_info }}</textarea>
                     </div>
                     <div class="col-md-4">
                         <span class="help-block"></span>

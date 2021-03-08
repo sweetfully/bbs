@@ -4,7 +4,7 @@ var $age_input = $("#age");
 var $sex_input = $("input[name='sex']");
 var $birthday_input = $("#birthday");
 var $hometown_input = $("#hometown");
-var $introduce_input = $("#introduce");
+var $introduce_input = $("#userInfo");
 $(".edit").on("click", function(){
     var innerText = $(this).html();
     if (innerText.search("完成") === -1){
@@ -22,8 +22,7 @@ $(".edit").on("click", function(){
             $nickname_input.parent().next().find("span").html("用户昵称不能为空");
             return;
         }
-        update_info(nickname_txt, $age_input.val(), $("input[name='sex']:checked").val(), $birthday_input.val(),
-            $hometown_input.val(), $introduce_input.val());
+        update_info(nickname_txt);
         $nickname_input.attr("disabled","disabled");
         $userid_input.attr("disabled","disabled");
         $userid_input.parent().next().find("span").html("");
@@ -60,7 +59,7 @@ $('#avatar').on('change', function (event) {
     })
 });
 
-function update_info(nickname, age, sex, birthday, hometown, userInfo) {
+function update_info(nickname) {
     if (nickname.length === 0){
         return;
     }
@@ -68,7 +67,7 @@ function update_info(nickname, age, sex, birthday, hometown, userInfo) {
         url: "/user/update_user_info/",
         method: "post",
         dataType: "json",
-        data: {nickname: nickname, age: age, sex: sex, birthday: birthday, hometown: hometown, userInfo: userInfo},
+        data: $(".info-form").serialize(),
         success: function (data) {
             console.log("更新用户返回数据：");
             console.log(data);

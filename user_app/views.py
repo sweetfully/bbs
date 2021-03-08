@@ -56,10 +56,13 @@ def register(request):
 
                 avatar = request.FILES.get("avatar")
                 print("头像：", avatar)
+                user_detail_info = UserDetailInfo.objects.create()
                 if avatar:
-                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, avatar=avatar, username=username)
+                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, avatar=avatar, username=username,
+                                                 detail_info=user_detail_info)
                 else:
-                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, username=username)
+                    UserInfo.objects.create_user(**reg_form_obj.cleaned_data, username=username,
+                                                 detail_info=user_detail_info)
 
                 user = auth.authenticate(request, username=username, password=password)
                 auth.login(request, user=user)
