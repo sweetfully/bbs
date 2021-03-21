@@ -35,6 +35,7 @@ class Blog(models.Model):
     # 标题
     # 内容（引用文件）
     # 一小段内容
+    # 文章的地址
     # 创建日期
     # 更新日期
     # 点赞数
@@ -47,6 +48,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=400)
     content_paragraph = models.CharField(max_length=200)
+    url = models.CharField(max_length=80)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     praise_num = models.IntegerField()
