@@ -40,3 +40,12 @@ body {
 .nav-login {
     margin-right: 15px;
 }
+
+.write-blog{
+    margin-right: 15px;
+}
+
+.write-blog:hover{
+    color: #555;
+    background-color: #e7e7e7;
+}

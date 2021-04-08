@@ -5,6 +5,7 @@ var $sex_input = $("input[name='sex']");
 var $birthday_input = $("#birthday");
 var $hometown_input = $("#hometown");
 var $introduce_input = $("#userInfo");
+var notyf = new Notyf({delay:3000});
 $(".edit").on("click", function(){
     var innerText = $(this).html();
     if (innerText.search("完成") === -1){
@@ -50,10 +51,11 @@ $('#avatar').on('change', function (event) {
         success: function (data) {
             console.log(data);
             if (data.status === 0){
-                $('.user-avatar').attr({"src": data.data})
-                $('.nav-avatar').attr({"src": data.data})
+                $('.user-avatar').attr({"src": data.data});
+                $('.nav-avatar').attr({"src": data.data});
+                notyf.confirm("修改成功！");
             }else {
-                alert(data.msg);
+                notyf.alert(data.msg);
             }
         }
     })
@@ -72,7 +74,7 @@ function update_info(nickname) {
             console.log("更新用户返回数据：");
             console.log(data);
             if (data.status === 0){
-                //
+                notyf.confirm("用户信息修改成功！");
                 $userid_input.val(data.data.username);
                 $nickname_input.val(data.data.user_nick);
                 $(".user-nick").html("用户昵称：" + data.data.user_nick);
@@ -93,7 +95,7 @@ function update_info(nickname) {
                 $sex_input.each(function(){$(this).removeAttr("checked")});
                 $("#"+sex_ele_id).attr("checked","checked");
             } else if (data.status === 1) {
-                console.log(data.msg)
+                notyf.alert(data.msg);
             }
         }
     })

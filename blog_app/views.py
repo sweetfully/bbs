@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render
 from django.db.models import Count, Sum
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,7 @@ from blog_app import models as blog_models
 from utils import sql_result_util
 from utils.result_dict_util import ResultDict
 
+logger = logging.getLogger('django')
 BLOG_NUM_BY_PAGE = 4
 BLOG_SORT_DICT = {1: "-create_date", 2: "-praise_num", 3: "-read_num",
                   -1: "create_date", -2: "praise_num", -3: "read_num"}
@@ -97,10 +99,11 @@ def get_favorite_dir(request):
     new_time = blog_models.Favorite.objects.filter(author=user).order_by("-create_time").values("create_time").first()
     blog_count = blog_models.Favorite.objects.filter(author=user).aggregate(blog_count=Count(1))
     favorite_dict = {"id": -1, "favorite_name": "默认收藏夹"}
-    if not new_time:
+    if new_time:
         favorite_dict.update(new_time)
-    if not blog_count:
+    if blog_count:
         favorite_dict.update(blog_count)
+    logger.info(favorite_dict)
     return ResultDict.get_success_response([favorite_dict, ])
 
 

@@ -6,6 +6,7 @@
 {% endblock %}
 {% block page-css %}
     <link href="{% static 'my/css/person_center.css' %}" rel="stylesheet">
+    <link href="{% static 'notyf/dist/notyf.min.css' %}" rel="stylesheet">
 {% endblock %}
 {% block page-content %}
     <div class="media user-introduced">
@@ -200,6 +201,7 @@
     </div>
 {% endblock %}
 {% block page-js %}
+<script src="{% static 'notyf/dist/notyf.min.js' %}"></script>
 <script src="{% static 'my/js/setup-ajax.js' %}"></script>
 <script src="{% static 'my/js/user_info.js' %}"></script>
 {% endblock %}

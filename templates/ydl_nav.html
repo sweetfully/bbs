@@ -9,8 +9,8 @@
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul id="navbar-ul" class="nav navbar-nav">
-                    <li><a href="{% url 'bbs_home' %}">首页</a></li>
-                    <li class="active" data-toggle="tab"><a href="#">互联网</a></li>
+                    <li class="active"><a href="{% url 'bbs_home' %}">首页</a></li>
+                    <li data-toggle="tab"><a href="#">互联网</a></li>
                     <li data-toggle="tab"><a href="#">设计类</a></li>
                     <li data-toggle="tab"><a href="#">建筑业</a></li>
                     <li data-toggle="tab"><a href="#">汽车类</a></li>
@@ -37,9 +37,8 @@
                                 <img src="{{ request.user.avatar }}" class="nav-avatar">
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/blog/{{ request.user.username }}/home">个人中心</a></li>
-                                <li><a href="/user/user_data">个人信息</a></li>
-                                <li><a href="#">修改密码</a></li>
+                                <li><a href="/blog/{{ request.user.username }}/home">博客管理</a></li>
+                                <li><a href="/user/user_data">个人中心</a></li>
                                 <li><a href="/user/logout">退出登录</a></li>
                             </ul>
                         </div>
@@ -47,13 +46,12 @@
                     <ul id="navbar-ul" class="nav navbar-nav navbar-right">
                         <li hidden-sm hidden-md ><span class="nav-greet" href="javascript:void(0);">欢迎回来：{{ request.user.user_nick }}&nbsp;
                             (用户ID：{{ request.user.username }})</span></li>
-                        <li class="active" data-toggle="tab"><a href="#">消息</a></li>
-                        <li data-toggle="tab"><a href="#">收藏</a></li>
+                        <li class="write-blog"><a href="/blog/write_blog/">写博客</a></li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav navbar-right nav-login">
-                        <li><a href="/user/register"><span class="glyphicon glyphicon-user"></span>注册</a></li>
-                        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+                        <li><a href="/user/register"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                     </ul>
                 {% endif %}
             </div>

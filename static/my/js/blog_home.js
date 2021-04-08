@@ -5,6 +5,7 @@ var favorites_dir_or_list = true;
 var favorites_dir_id = -1;
 var $concern_div = $(".concern-list");
 var $favorites_div = $(".favorites");
+var notyf = new Notyf({delay:3000});
 
 function like_user(btn, userId, likeOrNot){
     var operate = 0;
@@ -25,12 +26,14 @@ function like_user(btn, userId, likeOrNot){
             if (data.status === 0){
                 if (likeOrNot){
                     btn.innerHTML="取消关注";
+                    notyf.confirm("关注成功！");
                 }else {
                     btn.innerHTML="关注";
+                    notyf.confirm("取消关注成功！");
                 }
             } else if (data.status === 1){
                 /// todo 弹框
-                alert(data.msg)
+                notyf.alert(data.msg)
             } else if (data.status === 10){
                 document.location = "/user/login?next=" + document.location.pathname
             }
@@ -112,6 +115,7 @@ function get_favorite_dir_list(userId, page) {
         dataType: "json",
         data: {userId: userId, page: page},
         success: function (data) {
+            console.log("博客收藏：" + data);
             if (data.status === 0){
                 if (page === 1){
                     $favorites_div.empty();
@@ -134,7 +138,6 @@ function get_favorite_dir_list(userId, page) {
 function get_favorite_list(userId, favorite_dir_id, page) {
     favorites_dir_id = favorite_dir_id;
     favorites_dir_or_list = false;
-    console.log(1);
     $.ajax({
         url: "/blog/favorite_list/",
         method: "get",
@@ -160,14 +163,14 @@ function get_favorite_list(userId, favorite_dir_id, page) {
                         str = "<div class=\"media blog-body-item\">" +
                             "<h3 class=\"media-heading\">" + data.data[i].title + "</h3>" +
                             "<div class=\"media-left\">" +
-                            "<a href=\"#\">" +
+                            "<a href=\"/blog/" + data.data[i].user.username + "/home\">" +
                             "<img class=\"media-object blog-avatar img-circle\" src=\"" + data.data[i].user.avatar +
                             "\" alt=\"用户头像\" " +
                             "title=\"" + data.data[i].user.user_nick + "(" + data.data[i].user.username + ")\">" +
                             "</a></div>" +
                             "<div class=\"media-body blog-content\">" + data.data[i].content_paragraph + "</div>" +
                             "<div class=\"media-bottom\">" +
-                            "<span class=\"text-primary\">" + data.data[i].user.user_nick + "</span>" +
+                            "<a href=\"/blog/" + data.data[i].user.username + "/home\" class=\"text-primary\">" + data.data[i].user.user_nick + "</a>" +
                             "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
                             "<span>" + data.data[i].create_date + "</span>" +
                             "<span class=\"pull-right interval-left\">" +

@@ -18,8 +18,8 @@
 <div class="container">
     <!-左侧导航栏--->
     <div class="col-md-2">
-        <div class="list-group">
-            <a href="#" class="list-group-item text-center active">分类栏</a>
+        <div class="list-group home-nav">
+            <a href="#" class="list-group-item text-center active">推荐</a>
             <a href="#" class="list-group-item text-center">互联网</a>
             <a href="#" class="list-group-item text-center">JAVA</a>
             <a href="#" class="list-group-item text-center">设计</a>
@@ -42,14 +42,14 @@
                 <div class="media blog-body-item">
                     <h3 class="media-heading">{{ blog_content.title }}</h3>
                     <div class="media-left">
-                        <a href="#">
+                        <a href="/blog/{{ blog_content.publisher.username }}/home">
                             <img class="media-object blog-avatar img-circle" src="{{ blog_content.publisher.avatar }}"
                                  alt="用户头像" title="{{ blog_content.publisher.user_nick }}({{ blog_content.publisher.username }})">
                         </a>
                     </div>
                     <div class="media-body blog-content">{{ blog_content.content_paragraph }}</div>
                     <div class="media-bottom">
-                        <span class="text-primary">{{ blog_content.publisher.user_nick }}</span>
+                        <a href="/blog/{{ blog_content.publisher.username }}/home" class="text-primary">{{ blog_content.publisher.user_nick }}</a>
                         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                         <span>{{ blog_content.create_date }}</span>
                         <span class="pull-right interval-left"><span

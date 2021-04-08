@@ -9,6 +9,7 @@
     {% load static %}
     <!--Bootstrap-->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'notyf/dist/notyf.min.css' %}" rel="stylesheet">
     <link href="{% static 'my/css/blog_home.css' %}" rel="stylesheet">
     <link href="{% static 'my/css/nav.css' %}" rel="stylesheet">
 
@@ -90,6 +91,7 @@
 <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
 <!--bootstrap js-->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'notyf/dist/notyf.min.js' %}"></script>
 <script src="{% static 'my/js/blog_home.js' %}"></script>
 <script>
 $(function () {
@@ -180,7 +182,7 @@ $(function () {
                             "</div>" +
                             "<div class=\"media-body blog-content\">" + data.data[i].content_paragraph + "</div>" +
                             "<div class=\"media-bottom\">" +
-                            "<span class=\"text-primary\">{{ user.user_nick }}</span>" +
+                            "<a href=\"#\" class=\"text-primary\">{{ user.user_nick }}</a>" +
                             "<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>" +
                             "<span>" + data.data[i].create_date + "</span>" +
                             "<span class=\"pull-right interval-left\">" +
@@ -225,5 +227,4 @@ $(function () {
 });
 
 </script>
-<script src="{% static 'my/js/blog_home.js' %}"></script>
 </html>
