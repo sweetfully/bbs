@@ -7,4 +7,5 @@ urlpatterns = [
     path('message_manager/', views.message_manager_list),
     path('favorite_dir/', views.get_favorite_dir),
     path('favorite_list/', views.get_favorite_list),
+    path('write_blog/', views.write_blog),
 ]

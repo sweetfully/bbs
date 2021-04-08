@@ -35,14 +35,14 @@ def recommend_list(request):
         list_data_set = blog_model.Blog.objects.raw(
             "select count(1) as count, user_app_userinfo.id, user_app_userinfo.username,"
             " user_app_userinfo.user_nick, user_app_userinfo.user_info, user_app_userinfo.avatar"
-            " from blog_app_blog LEFT JOIN user_app_userinfo on  blog_app_blog.publisher_id = user_app_userinfo.id"
-            " GROUP BY blog_app_blog.publisher_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
+            " from user_app_focus LEFT JOIN user_app_userinfo on user_app_focus.be_focus_people_id = user_app_userinfo.id"
+            " GROUP BY user_app_focus.be_focus_people_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
     elif recommend_type == 2:
         list_data_set = blog_model.Blog.objects.raw(
             "select count(1) as count, user_app_userinfo.id, user_app_userinfo.username,"
             " user_app_userinfo.user_nick, user_app_userinfo.user_info, user_app_userinfo.avatar"
-            " from user_app_focus LEFT JOIN user_app_userinfo on user_app_focus.be_focus_people_id = user_app_userinfo.id"
-            " GROUP BY user_app_focus.be_focus_people_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
+            " from blog_app_blog LEFT JOIN user_app_userinfo on  blog_app_blog.publisher_id = user_app_userinfo.id"
+            " GROUP BY blog_app_blog.publisher_id ORDER BY count DESC LIMIT %s", params=[recommend_num, ])
     else:
         return ResultDict.get_error_response("排序方式有误")
     print(sql_result_util.result_to_list(list_data_set))

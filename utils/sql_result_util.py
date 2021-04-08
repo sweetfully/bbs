@@ -2,6 +2,10 @@
 对数据库查询结果做处理的工具
 """
 from django.db.models import QuerySet
+import io
+import sys
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 
 
 def result_to_list(query_set):

@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.db.models import Count, Sum
+from django.contrib.auth.decorators import login_required
 from user_app import models as user_models
 from blog_app import models as blog_models
-from django.db.models import Count, Sum
 from utils import sql_result_util
 from utils.result_dict_util import ResultDict
 
@@ -96,8 +97,10 @@ def get_favorite_dir(request):
     new_time = blog_models.Favorite.objects.filter(author=user).order_by("-create_time").values("create_time").first()
     blog_count = blog_models.Favorite.objects.filter(author=user).aggregate(blog_count=Count(1))
     favorite_dict = {"id": -1, "favorite_name": "默认收藏夹"}
-    favorite_dict.update(new_time)
-    favorite_dict.update(blog_count)
+    if not new_time:
+        favorite_dict.update(new_time)
+    if not blog_count:
+        favorite_dict.update(blog_count)
     return ResultDict.get_success_response([favorite_dict, ])
 
 
@@ -123,3 +126,10 @@ def get_favorite_list(request):
 
 def message_manager_list(request):
     return render(request, "message_manager.html")
+
+
+@login_required
+def write_blog(request):
+    if request.method == "POST":
+        return ResultDict.get_success_response()
+    return render(request, "write_blog.html")

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>写博客</title>
+
+    {% load static %}
+    <!--Bootstrap-->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my/css/nav.css' %}" rel="stylesheet">
+    <link href="{% static 'my/css/write_blog.css' %}" rel="stylesheet">
+    <link href="{% static 'notyf/dist/notyf.min.css' %}" rel="stylesheet">
+
+    <style rel="stylesheet">
+        body{
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+{% include 'ydl_nav.html' %}
+<div class="container">
+    <div class="blog-header">
+        <div class="back-btn col-md-1">
+            <span onClick="javascript :history.back(-1);" class="back-span"><span
+                    class="glyphicon glyphicon-chevron-left"></span>返回</span>
+        </div>
+        <div class="blog-title-div col-md-10">
+            <input type="text" class="blog-title-input form-control" placeholder="请输入文章标题..." name="blog-title" />
+        </div>
+        <div class="publish-blog pull-right col-md-1"><button class="btn btn-primary publish-btn">发布文章</button></div>
+    </div>
+    <div id="toolbar-container"></div>
+    <div id="blog-text-container"></div>
+
+    <div class="blog-publish-overlay"></div>
+    <div class="blog-publish-alert">
+        <div class="alert-header clearfix">
+            <h3 class="pull-left">发布文章</h3>
+            <span class="pull-right close-alert">&times;</span>
+        </div>
+        <div class="alert-body">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-md-3" for="blog-type">博客类别：</label>
+                    <div class="col-md-9">
+                        <input name="blog-type" id="blog-type" class="form-control" placeholder="博客类别">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <span class="blog-recommend">推荐：</span>
+                        <span class="blog-type">类型1</span>
+                        <span class="blog-type">类型2</span>
+                        <span class="blog-type">类型3</span>
+                        <span class="blog-type">类型4</span>
+                        <span class="blog-type">类型3</span>
+                        <span class="blog-type">类型4</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="line-height: 30px">博客标签：</label>
+                    <div class="col-md-9">
+                        <div class="variable-length-div">
+                            <input type="text" maxlength="10" class="variable-length-input"/>
+{#                            <span class="variable-length-close">&times;</span>#}
+                        </div>
+{#                        <div class="variable-length-div">#}
+{#                            <input type="text" maxlength="10" class="variable-length-input"/>#}
+{#                            <span class="variable-length-close">&times;</span>#}
+{#                        </div>#}
+{#                        <div class="variable-length-div">#}
+{#                            <input type="text" maxlength="10" class="variable-length-input"/>#}
+{#                            <span class="variable-length-close">&times;</span>#}
+{#                        </div>#}
+                        <span class="add-label">新增标签</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="alert-footer">
+            <div class="pull-right">
+                <button class="btn btn-primary publish-sure-btn">发布</button>
+                <button class="btn btn-info close-alert-btn">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'wangEditor/js/wangEditor.min.js' %}"></script>
+<script src="{% static 'notyf/dist/notyf.min.js' %}"></script>
+<script src="{% static 'my/js/setup-ajax.js' %}"></script>
+<script src="{% static 'my/js/write_blog.js' %}"></script>
+</html>

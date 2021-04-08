@@ -2,6 +2,10 @@ body {
     padding-top: 70px;
 }
 
+.navbar-fixed-top{
+    z-index: 15001;
+}
+
 .navbar-header .nav-logo {
     height: 70px;
     margin-top: -27px
